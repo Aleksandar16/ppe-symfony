@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResidenceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,18 @@ class Residence
      * @ORM\Column(type="string", length=255)
      */
     private $inventory_file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $representative_id;
 
     public function getId(): ?int
     {
@@ -123,4 +137,29 @@ class Residence
 
         return $this;
     }
+
+    public function getOwnerId(): ?user
+    {
+        return $this->owner_id;
+    }
+
+    public function setOwnerId(?user $owner_id): self
+    {
+        $this->owner_id = $owner_id;
+
+        return $this;
+    }
+
+    public function getRepresentativeId(): ?user
+    {
+        return $this->representative_id;
+    }
+
+    public function setRepresentativeId(?user $representative_id): self
+    {
+        $this->representative_id = $representative_id;
+
+        return $this;
+    }
+
 }

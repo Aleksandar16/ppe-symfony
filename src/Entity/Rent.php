@@ -62,6 +62,18 @@ class Rent
      */
     private $representative_validated_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tenant_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=residence::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $residence_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +183,30 @@ class Rent
     public function setRepresentativeValidatedAt(\DateTimeInterface $representative_validated_at): self
     {
         $this->representative_validated_at = $representative_validated_at;
+
+        return $this;
+    }
+
+    public function getTenantId(): ?user
+    {
+        return $this->tenant_id;
+    }
+
+    public function setTenantId(?user $tenant_id): self
+    {
+        $this->tenant_id = $tenant_id;
+
+        return $this;
+    }
+
+    public function getResidenceId(): ?residence
+    {
+        return $this->residence_id;
+    }
+
+    public function setResidenceId(?residence $residence_id): self
+    {
+        $this->residence_id = $residence_id;
 
         return $this;
     }
