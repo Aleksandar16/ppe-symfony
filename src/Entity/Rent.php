@@ -64,13 +64,11 @@ class Rent
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $tenant_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=residence::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $residence_id;
 

@@ -51,13 +51,11 @@ class Residence
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $owner_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $representative_id;
 
@@ -161,5 +159,4 @@ class Residence
 
         return $this;
     }
-
 }
