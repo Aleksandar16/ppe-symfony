@@ -2,14 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
-use App\Entity\Residence;
-use App\Entity\Rent;
 
+use App\Entity\Rent;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class RentFixtures extends Fixture 
+class RentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -20,8 +19,8 @@ class RentFixtures extends Fixture
 
         for ($i = 0; $i < 20; $i++) {
             $rent = new Rent();
-            $rent->setTenant(rand(0,20));
-            $rent->setResidence(rand(0,20));
+            $rent->setTenant($this->getReference('user'.rand(1, 19)));
+            $rent->setResidence($this->getReference('residence'.rand(1, 19)));
             $rent->setInventoryFile('file'.rand(0,20).'.pdf');
             $rent->setDepartureDate($date);
             $rent->setArrivalDate($date);
@@ -31,10 +30,17 @@ class RentFixtures extends Fixture
             $rent->setRepresentativeComments('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $rent->setRepresentativeSignature('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $rent->setRepresentativeValidatedAt($date);
-
+            $this->addReference('rent'.$i, $rent );
             $manager->persist($rent);
         }
 
         $manager->flush();
+    }
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+            ResidenceFixtures::class,
+        ];
     }
 }

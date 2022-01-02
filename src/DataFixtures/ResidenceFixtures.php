@@ -2,10 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
 use App\Entity\Residence;
-use App\Entity\Rent;
-
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -21,12 +18,18 @@ class ResidenceFixtures extends Fixture
             $residence->setZipCode('Name');
             $residence->setCountry('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $residence->setInventoryFile('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
-            $residence->setOwner(rand(0,20));
-            $residence->setRepresentative(rand(0,20));
-
+            $residence->setOwner($this->getReference('user'.rand(1, 19)));
+            $residence->setRepresentative($this->getReference('user'.rand(1, 19)));
+            $this->addReference('residence'.$i, $residence );
             $manager->persist($residence);
         }
-        
+
         $manager->flush();
+    }
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 }
