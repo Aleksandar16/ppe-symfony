@@ -1,7 +1,7 @@
 #footerText {
-    display: flex;
     background-color: rgba(0, 0, 0, 0.9);
     padding: 50px;
+    padding-bottom: 210px;
 }
 
 li {
@@ -26,5 +26,4 @@ li {
 
 .footerRight {
     float: right;
-    margin-left: 10%;
 }
