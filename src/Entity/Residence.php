@@ -52,12 +52,12 @@ class Residence
     /**
      * @ORM\ManyToOne(targetEntity=user::class)
      */
-    private $owner_id;
+    private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class)
      */
-    private $representative_id;
+    private $representative;
 
     public function getId(): ?int
     {
@@ -136,26 +136,26 @@ class Residence
         return $this;
     }
 
-    public function getOwnerId(): ?user
+    public function getOwner(): ?user
     {
-        return $this->owner_id;
+        return $this->owner;
     }
 
-    public function setOwnerId(?user $owner_id): self
+    public function setOwnerId(?user $owner): self
     {
-        $this->owner_id = $owner_id;
+        $this->owner = $owner;
 
         return $this;
     }
 
-    public function getRepresentativeId(): ?user
+    public function getRepresentative(): ?user
     {
-        return $this->representative_id;
+        return $this->representative;
     }
 
-    public function setRepresentativeId(?user $representative_id): self
+    public function setRepresentative(?user $representative): self
     {
-        $this->representative_id = $representative_id;
+        $this->representative = $representative;
 
         return $this;
     }
