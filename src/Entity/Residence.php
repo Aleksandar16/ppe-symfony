@@ -141,7 +141,7 @@ class Residence
         return $this->owner;
     }
 
-    public function setOwnerId(?user $owner): self
+    public function setOwner(?user $owner): self
     {
         $this->owner = $owner;
 

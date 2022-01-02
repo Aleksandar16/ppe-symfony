@@ -7,9 +7,10 @@ use App\Entity\Residence;
 use App\Entity\Rent;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends Fixture 
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -25,5 +26,10 @@ class UserFixtures extends Fixture
             $manager->persist($user);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        // TODO: Implement getDependencies() method.
     }
 }
