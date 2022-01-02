@@ -63,12 +63,12 @@ class Rent
     private $representative_validated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=user::class)
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $tenant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=residence::class)
+     * @ORM\ManyToOne(targetEntity=Residence::class)
      */
     private $residence;
 
