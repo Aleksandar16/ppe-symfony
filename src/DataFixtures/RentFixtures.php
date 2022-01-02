@@ -20,8 +20,31 @@ class RentFixtures extends Fixture
 
         for ($i = 0; $i < 20; $i++) {
             $rent = new Rent();
-            $rent->setTenantId(rand(0,20));
-            $rent->setResidenceId(rand(0,20));
+            //
+            $rent->setTenant($this->getReference('Rent'.rand(0,20)));
+            $countCategory = rand(0,20);
+            if ($countCategory > 0)
+            {
+                for ($j=0; $j < $countCategory; $j++)
+                {
+                    $article->addCategory($this->getReference('User'.$j));
+                }
+            }
+            $this->addReference('user-'.$i, $user);
+            //
+            $rent->setResidence($residence);
+            $rent->setResidence($this->getReference('residence'.rand(0,20)));
+            $countCategory = rand(0,20);
+            if ($countCategory > 0)
+            {
+                for ($j=0; $j < $countCategory; $j++)
+                {
+                    $rent->addCategory($this->getReference('residence'.$j));
+                }
+            }
+            $this->addReference('residence-'.$i, $residence);
+
+
             $rent->setInventoryFile('file'.rand(0,20).'.pdf');
             $rent->setDepartureDate($date);
             $rent->setArrivalDate($date);
@@ -36,5 +59,12 @@ class RentFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+            ResidenceFixtures::class,
+        ];
     }
 }

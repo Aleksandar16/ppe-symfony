@@ -15,7 +15,7 @@ class ResidenceFixtures extends Fixture
     {
         for ($i = 0; $i < 20; $i++) {
             $residence = new Residence();
-            $residence->setName('Name'.$i);
+            $residence->setName('Residence'.$i);
             $residence->setAdress('Adress'.$i);
             $residence->setCity('Name'.$i);
             $residence->setZipCode('Name');
