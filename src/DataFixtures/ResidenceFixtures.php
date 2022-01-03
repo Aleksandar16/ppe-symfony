@@ -18,8 +18,8 @@ class ResidenceFixtures extends Fixture
             $residence->setZipCode('Name');
             $residence->setCountry('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $residence->setInventoryFile('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
-            $residence->setOwner($this->getReference('user'.rand(1, 19)));
-            $residence->setRepresentative($this->getReference('user'.rand(1, 19)));
+            $residence->setOwner($this->getReference('user'.rand(1, 2)));
+            $residence->setRepresentative($this->getReference('user'.rand(1, 2)));
             $this->addReference('residence'.$i, $residence );
             $manager->persist($residence);
         }

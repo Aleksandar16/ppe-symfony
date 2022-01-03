@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_verified = false;
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -134,12 +134,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isVerified(): bool
     {
-        return $this->is_verified;
+        return $this->isVerified;
     }
 
     public function setIsVerified(bool $isVerified): self
     {
-        $this->is_verified = $isVerified;
+        $this->isVerified = $isVerified;
 
         return $this;
     }
