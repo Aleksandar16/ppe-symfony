@@ -5,3 +5,8 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+locataires:
+    path: /locataires
+    methods: ["GET"]
+    controller: App\Controller\LocatairesController::index
