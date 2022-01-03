@@ -22,7 +22,7 @@ class UserFixtures extends Fixture
         // $manager->persist($product);
         for ($i = 0; $i < 20; $i++) {
             $user = new User();
-            $user->setRole('role');
+            $user->setRoles([]);
             $user->setEmail('email'.rand(0,20).'@gmail.com');
             $password = $this->hasher->hashPassword($user, 'pass_1234');
             $user->setPassword($password);

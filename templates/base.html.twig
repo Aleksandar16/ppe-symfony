@@ -21,7 +21,18 @@
     <body>
         {% block body %}
             {% include 'includes/_header.html.twig' %}
-            <h3>Connectez-vous</h3>
+            {% block content %}
+                Bonjour
+                a
+                a
+                a
+                a
+                a
+                a
+                a
+                a
+                a
+            {% endblock %}
             {% include 'includes/_footer.html.twig' %}
         {% endblock %}
     </body>
