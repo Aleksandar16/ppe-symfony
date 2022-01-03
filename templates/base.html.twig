@@ -23,15 +23,10 @@
             {% include 'includes/_header.html.twig' %}
             {% block content %}
                 Bonjour
-                a
-                a
-                a
-                a
-                a
-                a
-                a
-                a
-                a
+                <br>
+                <a href="{{ path('login') }}">Connexion</a>
+                <br>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
             {% endblock %}
             {% include 'includes/_footer.html.twig' %}
         {% endblock %}
