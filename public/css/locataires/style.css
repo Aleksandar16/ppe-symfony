@@ -8,4 +8,9 @@ h3{
 
 #insert-locataires{
 	margin-left: 2.5%;
+	width: 215px;
+}
+
+.show-locataires{
+	padding-top: 50px;
 }
