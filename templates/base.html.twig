@@ -21,7 +21,13 @@
     <body>
         {% block body %}
             {% include 'includes/_header.html.twig' %}
-            <h3>Connectez-vous</h3>
+            {% block content %}
+                Bonjour
+                <br>
+                <a href="{{ path('login') }}">Connexion</a>
+                <br>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            {% endblock %}
             {% include 'includes/_footer.html.twig' %}
         {% endblock %}
     </body>

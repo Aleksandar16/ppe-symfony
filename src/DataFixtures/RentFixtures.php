@@ -19,8 +19,8 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 20; $i++) {
             $rent = new Rent();
-            $rent->setTenant($this->getReference('user'.rand(1, 19)));
-            $rent->setResidence($this->getReference('residence'.rand(1, 19)));
+            $rent->setTenant($this->getReference('user'.rand(1, 2)));
+            $rent->setResidence($this->getReference('residence'.rand(1, 2)));
             $rent->setInventoryFile('file'.rand(0,20).'.pdf');
             $rent->setDepartureDate($date);
             $rent->setArrivalDate($date);

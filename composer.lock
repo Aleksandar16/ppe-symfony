@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "569bb3db219786cdd31b379084349753",
+    "content-hash": "ae1e182afc415b8f3d65bd4b59d7964e",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -4684,12 +4684,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/password-hasher.git",
-                "reference": "93c17277c777886c708abaee1baaea43bc1c95bb"
+                "reference": "4a18240d8943ef0d4761d3add74d810ee13c0fe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/93c17277c777886c708abaee1baaea43bc1c95bb",
-                "reference": "93c17277c777886c708abaee1baaea43bc1c95bb",
+                "url": "https://api.github.com/repos/symfony/password-hasher/zipball/4a18240d8943ef0d4761d3add74d810ee13c0fe9",
+                "reference": "4a18240d8943ef0d4761d3add74d810ee13c0fe9",
                 "shasum": ""
             },
             "require": {
@@ -4748,7 +4748,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-08T14:00:06+00:00"
+            "time": "2022-01-02T09:56:25+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -5714,12 +5714,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "58115e7f8cc47bdc4e0fbc972ab6fc1664775678"
+                "reference": "d3ccc96b93533cfb305be502f88a918b4894751b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/58115e7f8cc47bdc4e0fbc972ab6fc1664775678",
-                "reference": "58115e7f8cc47bdc4e0fbc972ab6fc1664775678",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/d3ccc96b93533cfb305be502f88a918b4894751b",
+                "reference": "d3ccc96b93533cfb305be502f88a918b4894751b",
                 "shasum": ""
             },
             "require": {
@@ -5806,7 +5806,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-08T14:00:06+00:00"
+            "time": "2022-01-02T09:56:25+00:00"
         },
         {
             "name": "symfony/security-core",
@@ -7188,6 +7188,56 @@
                 }
             ],
             "time": "2021-12-08T14:00:06+00:00"
+        },
+        {
+            "name": "symfonycasts/reset-password-bundle",
+            "version": "v1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/reset-password-bundle.git",
+                "reference": "09fcd0d893bbd58d4477787c6cb5a4ffc4fc9455"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/09fcd0d893bbd58d4477787c6cb5a4ffc4fc9455",
+                "reference": "09fcd0d893bbd58d4477787c6cb5a4ffc4fc9455",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4 | ^5.0 | ^6.0",
+                "symfony/dependency-injection": "^4.4 | ^5.0 | ^6.0",
+                "symfony/deprecation-contracts": "^2.2 | ^3.0",
+                "symfony/http-kernel": "^4.4 | ^5.0 | ^6.0"
+            },
+            "conflict": {
+                "doctrine/orm": "<2.7",
+                "symfony/framework-bundle": "<4.4",
+                "symfony/http-foundation": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^2.0.3",
+                "doctrine/orm": "^2.7",
+                "symfony/framework-bundle": "^4.4 | ^5.0 | ^6.0",
+                "symfony/phpunit-bridge": "^5.0 | ^6.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\ResetPassword\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle that adds password reset functionality.",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/reset-password-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.11.0"
+            },
+            "time": "2021-11-30T17:32:21+00:00"
         },
         {
             "name": "twig/extra-bundle",
