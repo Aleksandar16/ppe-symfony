@@ -14,16 +14,16 @@ class LocatairesController extends AbstractController
         return $this->render('locataires/index.html.twig');
     }
 
-    public function show()
-    {
-        $queryBuilder = $this->createQueryBuilder('article');
-        $queryBuilder
-            ->where('article.author = :author')
-            ->orderBy('article.date', 'DESC')
-            ->setMaxResults($limit)
-            ->setParameter('author', $author)
-        ;
+    // public function show()
+    // {
+    //     $queryBuilder = $this->createQueryBuilder('article');
+    //     $queryBuilder
+    //         ->where('article.author = :author')
+    //         ->orderBy('article.date', 'DESC')
+    //         ->setMaxResults($limit)
+    //         ->setParameter('author', $author)
+    //     ;
 
-        return $queryBuilder->getQuery()->execute();
-    }
+    //     return $queryBuilder->getQuery()->execute();
+    // }
 }
