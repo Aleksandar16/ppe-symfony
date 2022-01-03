@@ -12,4 +12,9 @@ class LocatairesController extends AbstractController
     {
         return $this->render('locataires/index.html.twig');
     }
+
+    public function show()
+    {
+        
+    }
 }
