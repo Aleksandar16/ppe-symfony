@@ -2,28 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+// use App\Entity\User;
+// use App\Entity\Rent;
+// use App\Repository\RentRepository;
+
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LocatairesController extends AbstractController
 {
-    public function index(): Response
+    public function index(RentRepository $rentRepository): Response
     {
-        return $this->render('locataires/index.html.twig');
+        return $this->render('locataires/index.html.twig', [
+            'locataires' => $userRepository->findBy(array(), array('id' => 'DESC') ,array('roles' => 'ROLE_TENANT')),
+        ]);
     }
-
-    // public function show()
-    // {
-    //     $queryBuilder = $this->createQueryBuilder('article');
-    //     $queryBuilder
-    //         ->where('article.author = :author')
-    //         ->orderBy('article.date', 'DESC')
-    //         ->setMaxResults($limit)
-    //         ->setParameter('author', $author)
-    //     ;
-
-    //     return $queryBuilder->getQuery()->execute();
-    // }
 }
