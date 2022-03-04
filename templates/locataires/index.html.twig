@@ -3,8 +3,10 @@
 {% block content %}
 
     <div>
-        <h2>Gestion des locatires</h2>
-        <a type="button" class="btn btn-success" href="{{ path('ajout')}}">Nouveau locataire</a>
+        <h2>
+            Gestion des locataires
+            <a type="button" class="btn btn-success" href="">Nouveau locataire</a>
+        </h2>
     </div>
 
     <table>
@@ -17,14 +19,15 @@
                 <th>Action</th>
             </tr>
         </thead>
-        {% for mandataire in mandataire %}
+        {% for locataires in locataires %}
             <tbody>
                 <tr>
-                    <td>{{ locataire.id }}</td>
-                    <td>{{ locataire.name }}</td>
-                    <td>{{ locataire.firstname }}</td>
-                    <td>1</td>
-                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataire', {id: locataire.id})}}">Mettre à jour les données</a></td>
+                    <td>{{ locataires.id }}</td>
+                    <td>{{ locataires.name }}</td>
+                    <td>{{ locataires.firstname }}</td>
+                    <td>3</td>
+                    <td><a type="button" class="btn btn-secondary" href="">Mettre à jour les données</a></td>
+                    
                 </tr>
             </tbody>
         {% endfor %}
