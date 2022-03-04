@@ -47,4 +47,22 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByRoleMandataire()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.role LIKE :role')
+            ->setParameter('role', '["ROLE_REPRESENTATIVE"]')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByRoleLocataire()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.role LIKE :role')
+            ->setParameter('role', '["ROLE_TENANT"]')
+            ->getQuery()
+            ->getResult();
+    }
 }

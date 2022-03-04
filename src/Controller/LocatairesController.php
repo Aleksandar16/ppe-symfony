@@ -16,7 +16,7 @@ class LocatairesController extends AbstractController
     public function index(RentRepository $rentRepository,UserRepository $userRepository): Response
     {
         return $this->render('locataires/index.html.twig', [
-            'locataires' => $userRepository->findBy(array(), array('id' => 'DESC') ,array('roles' => 'ROLE_TENANT')),
+            'locataires' => $userRepository->findByRoleLocataire(),
         ]);
     }
 }

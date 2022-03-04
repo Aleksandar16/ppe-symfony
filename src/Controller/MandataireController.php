@@ -14,7 +14,7 @@ class MandataireController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('mandataire/index.html.twig', [
-            'mandataire' => $userRepository->findBy(array(), array('id' => 'DESC') ,array('roles' => 'ROLE_REPRESENTATIVE')),
+            'mandataire' => $userRepository->findByRoleMandataire(),
         ]);
     }
 
