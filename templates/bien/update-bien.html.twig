@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.zip_code) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.inventory_file) }}
+                {{ form_row(form.owner) }}
+                {{ form_row(form.representative) }}
+                {{ form_row(form.submit, { 'label': 'Mettre à jour les données' }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <h2>Résidence {{ bien.name }}</h2>
+                <div>
+                    <td><a type="button" class="btn btn-secondary disabled" href="">Disponible à la location</a></td>
+                    <td><a type="button" class="btn btn-success" href="">Ajouter une location</a></td>
+                </div>
+                <h3>{{ rent | length }} locations</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Nombre de locations</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    {% for rent in rent %}
+                        <tbody>
+                        <tr>
+                            <td>{{ rent.id }}</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td><a type="button" class="btn btn-secondary" href="">Accéder</a></td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

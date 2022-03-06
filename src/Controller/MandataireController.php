@@ -24,7 +24,7 @@ class MandataireController extends AbstractController
         return $this->render('mandataire/ajoutMandataire.html.twig');
     }
 
-    #[Route('/mandataire/{id}', name: 'show_mandataire')]
+    #[Route('/modif-mandataire/{id}', name: 'show_mandataire')]
     public function showMandataire(UserRepository $userRepository, int $id): Response
     {
         $mandataire = $userRepository->find($id);

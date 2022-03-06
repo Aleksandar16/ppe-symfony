@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div>
+        <p>{{ bien | length }}  biens</p>
+        <h2>Gestion des Biens</h2>
+        <a type="button" class="btn btn-success" href="{{ path('create_bien')}}">Ajouter un bien</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Nombre de locations</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        {% for bien in bien %}
+
+            <tbody>
+            <tr>
+                <td>{{ bien.id }}</td>
+                <td>{{ bien.name }}</td>
+                <td>{{ bien.address }}</td>
+                <td>1</td>
+                <td><a type="button" class="btn btn-secondary" href="{{ path('update_bien', {id: bien.id})}}">Mettre à jour les données</a></td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <h2>Ajouter Projet</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.inventory_file) }}
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                {{ form_row(form.zip_code) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.owner) }}
+                {{ form_row(form.representative) }}
+                {{ form_row(form.submit, { 'label': 'Ajouter' }) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

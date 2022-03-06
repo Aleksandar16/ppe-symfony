@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Rent;
+use App\Entity\Residence;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
