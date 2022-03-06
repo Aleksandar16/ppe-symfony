@@ -1,0 +1,12 @@
+<h3>Vérification</h3>
+
+<p>Bienvenu chez Gestion de location !</p>
+
+<p>Voici votre identifiant : {{ username }}</p>
+<p>Voici votre mot de passe : {{ password }}</p>
+
+<p>
+    Veuillez confirmer votre identité en cliquant sur le lien ci-dessous: <br><br>
+    <a href="{{ signedUrl }}">Confirmation d'email</a>.
+    Le lien va expiré dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
