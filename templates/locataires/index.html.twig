@@ -5,7 +5,7 @@
     <div>
         <h2>
             Gestion des locataires
-            <a type="button" class="btn btn-success" href="">Nouveau locataire</a>
+            <a type="button" class="btn btn-success" href="{{ path('ajout_locataires')}}">Nouveau locataire</a>
         </h2>
     </div>
 
@@ -26,7 +26,7 @@
                     <td>{{ locataires.name }}</td>
                     <td>{{ locataires.firstname }}</td>
                     <td>3</td>
-                    <td><a type="button" class="btn btn-secondary" href="">Mettre à jour les données</a></td>
+                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
                     
                 </tr>
             </tbody>

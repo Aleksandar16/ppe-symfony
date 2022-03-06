@@ -10,3 +10,14 @@ locataires:
     path: /locataires
     methods: ["GET"]
     controller: App\Controller\LocatairesController::index
+
+show_locataires:
+    path: /modif-locataires/{id}
+    methods: ["GET"]
+    controller: App\Controller\LocatairesController::index
+
+ajout_locataires:
+    path: /ajouter-locataires
+    methods: ["GET"]
+    controller: App\Controller\LocatairesController::index
+

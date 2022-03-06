@@ -19,4 +19,20 @@ class LocatairesController extends AbstractController
             'locataires' => $userRepository->findByRoleLocataire(),
         ]);
     }
+
+    public function showLocataires(UserRepository $userRepository, int $id): Response
+    {
+        $locataires = $userRepository->find($id);
+
+        if (null === $locataires) {
+            throw new NotFoundHttpException(sprintf("Locataire innexistant", $id));
+        }
+
+        return $this->render('locataires/locataires.html.twig', ['locataires' => $locataires]);
+    }
+
+    public function ajout(): Response
+    {
+        return $this->render('locataires/ajout.html.twig');
+    }
 }
