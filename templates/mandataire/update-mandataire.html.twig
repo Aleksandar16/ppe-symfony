@@ -3,17 +3,18 @@
 {% block content %}
 
     <div class="container">
+        <h2>Modifier Mandataire</h2>
         <div class="row">
             <div class="col-lg-6 col-xs-12">
-                <h2>Modifier Mandataire</h2>
                 {{ form_start(form) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.plainPassword) }}
-            </div>
-            <div class="col-lg-6 col-xs-12">
                 {{ form_row(form.name) }}
                 {{ form_row(form.firstname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.rent) }}
                 {{ form_row(form.submit, { 'label': 'Modifier' }) }}
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                {{ form_row(form.plainPassword) }}
                 {{ form_end(form) }}
             </div>
         </div>

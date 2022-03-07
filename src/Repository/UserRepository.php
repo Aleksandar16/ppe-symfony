@@ -65,4 +65,13 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByRent($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.role LIKE :role')
+            ->setParameter('role', '["ROLE_TENANT"]')
+            ->getQuery()
+            ->getResult();
+    }
 }

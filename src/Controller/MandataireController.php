@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Rent;
+use App\Form\ModifMandataireType;
 use App\Form\RegistrationFormType;
+use App\Repository\RentRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -95,7 +98,7 @@ class MandataireController extends AbstractController
     }
 
     #[Route('/modif-mandataire/{id}', name: 'show_mandataire')]
-    public function showMandataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, int $id): Response
+    public function showMandataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
     {
         $user = $userRepository->find($id);
 
@@ -103,7 +106,9 @@ class MandataireController extends AbstractController
             throw new NotFoundHttpException(sprintf('The techno with id %s was not found.', $id));
         }
 
-        $form = $this->createForm(MandataireType::class, $user);
+        $rentMandataire = $userRepository->findByRent($user);
+
+        $form = $this->createForm(ModifMandataireType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -116,12 +121,13 @@ class MandataireController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('mandataire', [
+            return $this->redirectToRoute('user', [
                 'id' => $user->getId()]);
         }
 
         return $this->render('mandataire/update-mandataire.html.twig', [
             'form' => $form->createView(),
+            'rent' => $rentMandataire,
             'user' => $user,
         ]);
     }

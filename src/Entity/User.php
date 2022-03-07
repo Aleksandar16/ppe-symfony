@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -53,6 +55,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=55)
      */
     private $firstname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="user")
+     */
+    private $rent;
+
+    public function __construct()
+    {
+        $this->rent = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -174,6 +186,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstName(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rent[]
+     */
+    public function getRent(): Collection
+    {
+        return $this->rent;
+    }
+
+    public function addRent(Rent $rent): self
+    {
+        if (!$this->rent->contains($rent)) {
+            $this->rent[] = $rent;
+            $rent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRent(Rent $rent): self
+    {
+        if ($this->rent->removeElement($rent)) {
+            // set the owning side to null (unless already changed)
+            if ($rent->getUser() === $this) {
+                $rent->setUser(null);
+            }
+        }
 
         return $this;
     }
