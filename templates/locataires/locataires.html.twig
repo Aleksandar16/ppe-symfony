@@ -2,8 +2,22 @@
 
 {% block content %}
 
-    <p>{{ locataires.id }}</p>
-    <p>{{ locataires.name }}</p>
-    <p>{{ locataires.firstname }}</p>
+    <!--<p>{{ locataires.id }}</p>-->
+    <p>{{ locataires.name }}&nbsp;&nbsp;{{ locataires.firstname }}</p>
+    <p></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <h2>Modifier un mandataire</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+                {{ form_row(form.submit, { 'label': 'Modifier' }) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
