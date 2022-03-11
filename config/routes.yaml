@@ -17,7 +17,11 @@ show_locataires:
     controller: App\Controller\LocatairesController::showLocataires
 
 ajout_locataires:
-    path: /ajouter-locataires
-    methods: ["GET"]
-    controller: App\Controller\LocatairesController::ajout
+    path: /ajout-locataires
+    methods: ["GET", "POST"]
+    controller: App\Controller\LocatairesController::ajoutLocataires
 
+app_verify_email:
+    path: /verify/email
+    methods: ["GET"]
+    controller: App\Controller\LocatairesController::verifyUserEmail

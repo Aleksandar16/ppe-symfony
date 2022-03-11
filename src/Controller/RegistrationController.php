@@ -15,6 +15,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+use SymfonyCasts\Bundle\VerifyEmail;
+
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
