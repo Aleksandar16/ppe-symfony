@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Rent;
 use App\Form\RegistrationFormType;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 use App\Form\LocataireType;
 use SymfonyCasts\Bundle\VerifyEmail;
 use App\Security\EmailVerifier;
@@ -22,6 +24,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LocatairesController extends AbstractController
 {
+    private EmailVerifier $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier = $emailVerifier;
+    }
+
     public function index(RentRepository $rentRepository,UserRepository $userRepository): Response
     {
         return $this->render('locataires/index.html.twig', [
@@ -79,6 +88,7 @@ class LocatairesController extends AbstractController
         ]);
     }
 
+    #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
