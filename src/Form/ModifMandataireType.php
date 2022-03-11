@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Residence;
 use App\Entity\User;
+use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,6 +21,7 @@ class ModifMandataireType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $user = $builder->getData();
         $builder
             ->add('email')
             ->add('plainPassword', RepeatedType::class, [
@@ -53,15 +56,17 @@ class ModifMandataireType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
             ])
-            ->add('rent', EntityType::class, [
-                'class' => User::class,
+            ->add('residence', EntityType::class, [
+                'class' => Residence::class,
                 'choice_label' => 'name',
                 'multiple' => 'true',
-                'query_builder' => function (UserRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->andWhere('u.role LIKE :role')
-                        ->setParameter('role', '["ROLE_REPRESENTATIVE"]');
-                },
+                'query_builder' => function (ResidenceRepository $er) use ($user) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.representative = :representative')
+                        ->setParameter('representative', $user);
+                        },
+
+                'label' => 'Résidences',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',

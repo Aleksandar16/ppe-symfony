@@ -13,4 +13,10 @@ class DefaultController extends AbstractController
     {
         return $this->render('base.html.twig');
     }
+
+    #[Route('/profil', name: 'profil')]
+    public function profil(): Response
+    {
+        return $this->render('profil.html.twig');
+    }
 }

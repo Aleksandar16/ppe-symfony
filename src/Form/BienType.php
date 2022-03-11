@@ -58,6 +58,9 @@ class BienType extends AbstractType
             ->add('owner', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
+                'attr' => array(
+                    'class' => 'selectpicker'
+                ),
                 'query_builder' => function (UserRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->andWhere('u.role LIKE :role')
@@ -67,6 +70,9 @@ class BienType extends AbstractType
             ->add('representative', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
+                'attr' => array(
+                    'class' => 'selectpicker'
+                ),
                 'query_builder' => function (UserRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->andWhere('u.role LIKE :role')

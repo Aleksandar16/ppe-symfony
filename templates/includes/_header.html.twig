@@ -9,12 +9,29 @@
                 <!--LIENS-->
 
                 <a class="linkNav" href="/">ACCUEIL</a>
-                <a class="linkNav" href="{{ path('bien')}}">BIENS</a>
-                <a class="linkNav" href="{{ path('locataires')}}">LOCATAIRES</a>
-                <a class="linkNav" href="{{ path('mandataire')}}">MANDATAIRES</a>
+                {% if is_granted('ROLE_OWNER') %}
+                    <a class="linkNav" href="{{ path('bien')}}">BIENS</a>
+                {% endif %}
+                {% if is_granted('ROLE_REPRESENTATIVE') %}
+                    <a class="linkNav" href="{{ path('bien')}}">BIENS</a>
+                {% endif %}
+                {% if is_granted('ROLE_OWNER') %}
+                    <a class="linkNav" href="{{ path('locataires')}}">LOCATAIRES</a>
+                {% endif %}
+                {% if is_granted('ROLE_OWNER') %}
+                    <a class="linkNav" href="{{ path('mandataire')}}">MANDATAIRES</a>
+                {% endif %}
             </ul>
             <ul>
-                <a class="linkNav" href=""><i class="fas fa-user-circle"></i>MON PROFIL</a>
+                {% if is_granted('ROLE_OWNER') %}
+                    <a class="linkNav" href="{{ path('profil')}}"><i class="fas fa-user-circle"></i>MON PROFIL</a>
+                {% endif %}
+                {% if is_granted('ROLE_REPRESENTATIVE') %}
+                    <a class="linkNav" href="{{ path('profil')}}"><i class="fas fa-user-circle"></i>MON PROFIL</a>
+                {% endif %}
+                {% if is_granted('ROLE_TENANT') %}
+                    <a class="linkNav" href="{{ path('profil')}}"><i class="fas fa-user-circle"></i>MON PROFIL</a>
+                {% endif %}
             </ul>
         </nav>
     </div>

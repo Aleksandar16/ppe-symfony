@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Residence;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -66,12 +67,17 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByRent($user)
+    public function findByResidence(User $user)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.role LIKE :role')
-            ->setParameter('role', '["ROLE_TENANT"]')
-            ->getQuery()
-            ->getResult();
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT residence
+            FROM App\Entity\Residence residence
+            INNER JOIN residence.representative User
+            WHERE User.id = :residence'
+        )->setParameter('residence', $user);
+
+        return $query->getResult();
     }
 }

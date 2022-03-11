@@ -23,11 +23,21 @@
         {% block body %}
             {% include 'includes/_header.html.twig' %}
             {% block content %}
-                Bonjour
-                <br>
-                <a href="{{ path('login') }}">Connexion</a>
-                <br>
-                <a href="{{ path('app_logout') }}">Déconnexion</a>
+                {% if is_granted('ROLE_OWNER') %}
+                    <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
+                    <p>Vous pouvez :</p>
+                    <a href="{{ path('mandataire') }}">Gérer les mandataires</a>
+                    <br>
+                    <a href="{{ path('locataires') }}">Gérer les locataires</a>
+                    <br>
+                    <a href="{{ path('bien') }}">Gérer les biens</a>
+                {% elseif is_granted('ROLE_REPRESENTATIVE') %}
+                    <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
+                {% elseif is_granted('ROLE_TENANT') %}
+                    <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
+                {% else %}
+                    <a href="{{ path('login') }}">Connexion</a>
+                {% endif %}
             {% endblock %}
             {% include 'includes/_footer.html.twig' %}
         {% endblock %}

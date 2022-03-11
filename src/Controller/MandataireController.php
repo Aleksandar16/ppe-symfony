@@ -106,7 +106,7 @@ class MandataireController extends AbstractController
             throw new NotFoundHttpException(sprintf('The techno with id %s was not found.', $id));
         }
 
-        $rentMandataire = $userRepository->findByRent($user);
+        $bienMandataire = $userRepository->findByResidence($user);
 
         $form = $this->createForm(ModifMandataireType::class, $user);
         $form->handleRequest($request);
@@ -121,13 +121,13 @@ class MandataireController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('user', [
+            return $this->redirectToRoute('mandataire', [
                 'id' => $user->getId()]);
         }
 
         return $this->render('mandataire/update-mandataire.html.twig', [
             'form' => $form->createView(),
-            'rent' => $rentMandataire,
+            'bien' => $bienMandataire,
             'user' => $user,
         ]);
     }

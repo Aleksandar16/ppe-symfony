@@ -59,6 +59,11 @@ class Residence
      */
     private $representative;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="residence")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +161,18 @@ class Residence
     public function setRepresentative(?user $representative): self
     {
         $this->representative = $representative;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

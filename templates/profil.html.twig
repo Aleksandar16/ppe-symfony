@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h3>{{ app.user.firstname }} {{ app.user.name }}</h3>
+
+    {% if is_granted('ROLE_OWNER') %}
+        <p>Vous êtes inscrit en tant que <strong>bailleur</strong> sur la plateforme.</p>
+    {% endif %}
+    {% if is_granted('ROLE_REPRESENTATIVE') %}
+        <p>Vous êtes inscrit en tant que <strong>mandataire</strong> sur la plateforme.</p>
+    {% endif %}
+    {% if is_granted('ROLE_TENANT') %}
+        <p>Vous êtes inscrit en tant que <strong>locataire</strong> sur la plateforme.</p>
+    {% endif %}
+
+    <p>Email : {{ app.user.email }}</p>
+
+    <a href="{{ path('app_logout') }}">Déconnexion</a>
+
+{% endblock %}

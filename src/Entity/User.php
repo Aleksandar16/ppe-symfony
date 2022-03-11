@@ -61,9 +61,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $rent;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Residence::class, mappedBy="user")
+     */
+    private $residence;
+
     public function __construct()
     {
         $this->rent = new ArrayCollection();
+        $this->residence = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -214,6 +220,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($rent->getUser() === $this) {
                 $rent->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Residence[]
+     */
+    public function getResidence(): Collection
+    {
+        return $this->residence;
+    }
+
+    public function addResidence(Residence $residence): self
+    {
+        if (!$this->residence->contains($residence)) {
+            $this->residence[] = $residence;
+            $residence->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResidence(Residence $residence): self
+    {
+        if ($this->residence->removeElement($residence)) {
+            // set the owning side to null (unless already changed)
+            if ($residence->getUser() === $this) {
+                $residence->setUser(null);
             }
         }
 
