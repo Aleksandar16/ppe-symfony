@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\RentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,9 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(RentRepository $rentRepository): Response
     {
-        return $this->render('base.html.twig');
+        $rent = $rentRepository->findAll();
+
+        return $this->render('base.html.twig', ['rent' => $rent]);
     }
 
     #[Route('/profil', name: 'profil')]

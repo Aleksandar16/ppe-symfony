@@ -35,6 +35,10 @@
                     <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
                 {% elseif is_granted('ROLE_TENANT') %}
                     <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
+                    {% for rent in rent %}
+                        {{ rent.id }}
+                        <br>
+                    {% endfor %}
                 {% else %}
                     <a href="{{ path('login') }}">Connexion</a>
                 {% endif %}

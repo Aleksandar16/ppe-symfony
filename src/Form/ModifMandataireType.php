@@ -56,18 +56,6 @@ class ModifMandataireType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
             ])
-            ->add('residence', EntityType::class, [
-                'class' => Residence::class,
-                'choice_label' => 'name',
-                'multiple' => 'true',
-                'query_builder' => function (ResidenceRepository $er) use ($user) {
-                    return $er->createQueryBuilder('r')
-                        ->where('r.representative = :representative')
-                        ->setParameter('representative', $user);
-                        },
-
-                'label' => 'Résidences',
-            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',
             ]);

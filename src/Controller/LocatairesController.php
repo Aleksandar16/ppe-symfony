@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Rent;
+use App\Form\ModifLocataireType;
 use App\Form\RegistrationFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
@@ -98,7 +99,7 @@ class LocatairesController extends AbstractController
         return $this->redirectToRoute('app_home');
     } 
 
-    public function showLocataires(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
+    public function upLocataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
     {
         $user = $userRepository->find($id);
 
@@ -120,6 +121,17 @@ class LocatairesController extends AbstractController
             $entityManager->persist($user);
 
             $entityManager->flush();
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                    ->to($user->getEmail())
+                    ->subject('Modification de votre compte')
+                    ->htmlTemplate('registration/modification.html.twig')->context([
+                        'username' => $user->getEmail(),
+                        'password' => $form->get('plainPassword')->getData(),
+                    ])
+            );
 
             return $this->redirectToRoute('locataires', [
                 'id' => $user->getId()]);

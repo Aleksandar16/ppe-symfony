@@ -27,7 +27,6 @@ class ModifLocataireType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',
@@ -42,7 +41,6 @@ class ModifLocataireType extends AbstractType
                     'label' => 'Mot de passe',
                 ],
                 'second_options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
                     'label' => 'Confirmation du mot de passe',
                 ],
                 'invalid_message' => 'The password fields must match.',
@@ -55,18 +53,6 @@ class ModifLocataireType extends AbstractType
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
-            ])
-            ->add('residence', EntityType::class, [
-                'class' => Residence::class,
-                'choice_label' => 'name',
-                'multiple' => 'true',
-                'query_builder' => function (ResidenceRepository $er) use ($user) {
-                    return $er->createQueryBuilder('r')
-                        ->where('r.representative = :representative')
-                        ->setParameter('representative', $user);
-                        },
-
-                'label' => 'Résidences',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',

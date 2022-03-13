@@ -61,7 +61,7 @@ class MandataireController extends AbstractController
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'BOT'))
+                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')->context([
@@ -120,6 +120,17 @@ class MandataireController extends AbstractController
             $entityManager->persist($user);
 
             $entityManager->flush();
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                    ->to($user->getEmail())
+                    ->subject('Modification de votre compte')
+                    ->htmlTemplate('registration/modification.html.twig')->context([
+                        'username' => $user->getEmail(),
+                        'password' => $form->get('plainPassword')->getData(),
+                    ])
+            );
 
             return $this->redirectToRoute('mandataire', [
                 'id' => $user->getId()]);
