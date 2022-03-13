@@ -46,7 +46,7 @@ class LocatairesController extends AbstractController
             throw new NotFoundHttpException(sprintf("Locataire innexistant", $id));
         }
 
-        return $this->render('locataires/locataires.html.twig', ['locataires' => $locataires]);
+        return $this->render('locataires/modif-locataires.html.twig', ['locataires' => $locataires]);
     }
 
     public function ajoutLocataires(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
