@@ -38,16 +38,7 @@ class LocatairesController extends AbstractController
         ]);
     }
 
-    public function showLocataires(UserRepository $userRepository, int $id): Response
-    {
-        $locataires = $userRepository->find($id);
-
-        if (null === $locataires) {
-            throw new NotFoundHttpException(sprintf("Locataire innexistant", $id));
-        }
-
-        return $this->render('locataires/modif-locataires.html.twig', ['locataires' => $locataires]);
-    }
+   
 
     public function ajoutLocataires(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -105,5 +96,39 @@ class LocatairesController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_home');
+    } 
+
+    public function showLocataires(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+
+        if (null === $user) {
+            throw new NotFoundHttpException(sprintf('The techno with id %s was not found.', $id));
+        }
+
+        $bienMandataire = $userRepository->findByResidence($user);
+
+        $form = $this->createForm(ModifLocataireType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $doctrine->getManager();
+
+            $user = $form->getData();
+
+            $entityManager->persist($user);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('locataires', [
+                'id' => $user->getId()]);
+        }
+
+        return $this->render('locataires/modif-locataires.html.twig', [
+            'form' => $form->createView(),
+            'bien' => $bienMandataire,
+            'user' => $user,
+        ]);
     }
 }
