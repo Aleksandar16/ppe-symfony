@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="title-brown">Nom Prénom</h2>
+            </div>
+            <div class="col-md-7">
+                <h2 class="title-brown">Mes locations</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date entrée</th>
+                            <th>Date sortie</th>
+                            <th>Locataires</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    {% for rent in rent %}
+                        <tbody>
+                            <tr>
+                                <td>{{ rent.id }}</td>
+                                <td>{{ rent.getDepartureDate|date('d/F/Y') }}</td>
+                                <td>{{ rent.getArrivalDate|date('d/F/Y') }}</td>
+                                <td>{{ rent.name }}</td>
+                                <td><a type="button" class="btn btn-secondary" href="">Accéder à la location</a></td>   
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
