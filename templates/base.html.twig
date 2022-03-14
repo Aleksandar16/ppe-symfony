@@ -37,6 +37,7 @@
                     <p>Bonjour {{ app.user.firstname }} {{ app.user.name }} !</p>
                     {% for rent in rent %}
                         {{ rent.id }}
+                        {{ rent.getArrivalDate|date('d/F/Y') }}
                         <br>
                     {% endfor %}
                 {% else %}
