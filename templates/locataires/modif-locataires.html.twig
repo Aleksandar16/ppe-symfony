@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-6 col-xs-12">
-                <h2>Modifier un locataire</h2>
+                <h2 class="title-brown">{{ user.firstname }} {{ user.name }}</h2>
                 {{ form_start(form) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.firstname) }}
@@ -15,7 +15,11 @@
                 {{ form_end(form) }}
             </div>
             <div class="col-md-6 col-lg-6 col-xs-12">
-                <h2>Liste des locations</h2>
+                <h2 class="title-brown">Liste des locations</h2>
+                <h2></h2>
+                {% for bien in bien %}
+                    <p>{{ bien.name }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>
