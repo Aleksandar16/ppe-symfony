@@ -80,4 +80,18 @@ class UserRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function findRent(User $user)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT rent
+            FROM App\Entity\Rent rent
+            INNER JOIN rent.tenant User
+            WHERE User.id = :tenant'
+        )->setParameter('tenant', $user);
+
+        return $query->getResult();
+    }
 }

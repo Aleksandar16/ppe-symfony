@@ -99,7 +99,7 @@ class LocatairesController extends AbstractController
         return $this->redirectToRoute('app_home');
     } 
 
-    public function upLocataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
+    public function upLocataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, int $id): Response
     {
         $user = $userRepository->find($id);
 
@@ -107,7 +107,7 @@ class LocatairesController extends AbstractController
             throw new NotFoundHttpException(sprintf('The techno with id %s was not found.', $id));
         }
 
-        $bienMandataire = $userRepository->findByResidence($user);
+        $rentLocataire = $userRepository->findRent($user);
 
         $form = $this->createForm(ModifLocataireType::class, $user);
         $form->handleRequest($request);
@@ -139,7 +139,7 @@ class LocatairesController extends AbstractController
 
         return $this->render('locataires/modif-locataires.html.twig', [
             'form' => $form->createView(),
-            'bien' => $bienMandataire,
+            'rent' => $rentLocataire,
             'user' => $user,
         ]);
     }
