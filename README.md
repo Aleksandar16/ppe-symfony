@@ -11,7 +11,10 @@ Aleksandar Milenkovic -> Membre 1 (Connexion/Mot de passe oublié, Gestion des m
 Shakeel Jeerooburkhan -> Membre 2 (Gestion des locataires, Gestion des locations)
 
 
-Installation du projet :
+Stack technique :
+- HTML/CSS
+- BOOTSTRAP
+- PHP
 
 
 
