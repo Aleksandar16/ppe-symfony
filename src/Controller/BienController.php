@@ -55,6 +55,25 @@ class BienController extends AbstractController
                 $bien->SetInventoryFile($newFilename);
             }
 
+            $screen = $form->get('photo')->getData();
+
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                try {
+                    $screen->move(
+                        $this->getParameter('bien_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $bien->setPhoto($newScreen);
+            }
+
             $entityManager = $doctrine->getManager();
 
             $bien = $form->getData();
@@ -105,6 +124,25 @@ class BienController extends AbstractController
 
                 $bien->setInventoryFile($newFilename);
 
+            }
+
+            $screen = $form->get('photo')->getData();
+
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                try {
+                    $screen->move(
+                        $this->getParameter('bien_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $bien->setPhoto($newScreen);
             }
 
             $entityManager = $doctrine->getManager();

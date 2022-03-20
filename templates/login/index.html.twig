@@ -3,24 +3,28 @@
 
 
 {% block content %}
-    <div class="container">
+    <div class="container" id="login">
         {% if error %}
             <div>Identifiant ou mot de passe invalide !</div>
         {% endif %}
-        <div class="row" >
+        <div>
             <div>
+                <h2>Connectez-vous</h2>
                 <form action="{{ path('login') }}" method="post">
-                    <div class="mb-3">
+                    <div class="form-group">
                         <label for="username">Email</label>
-                        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-                    </div>
-                    <div class="mb-3">
+                        <div>
+                            <input type="email" class="form-control" id="username" name="_username" value="{{ last_username }}"/>
+                        </div>
                         <label for="password">Mot de passe</label>
-                        <input type="password" id="password" name="_password"/>
+                        <div>
+                            <input type="password" class="form-control" id="password" name="_password"/>
+                        </div>
                     </div>
-                    <button class="btn btn-success" type="submit">login</button>
-                    <br>
-                    <a href="{{ path('app_forgot_password_request')}}">Mot de passe oublié</a>
+                    <div>
+                        <button class="btn btn-success" type="submit">Connexion</button>
+                        <a href="{{ path('app_forgot_password_request')}}">Mot de passe oublié ?</a>
+                    </div>
                 </form>
             </div>
         </div>

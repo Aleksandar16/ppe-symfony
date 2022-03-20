@@ -122,17 +122,6 @@ class LocatairesController extends AbstractController
 
             $entityManager->flush();
 
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
-                    ->to($user->getEmail())
-                    ->subject('Modification de votre compte')
-                    ->htmlTemplate('registration/modification.html.twig')->context([
-                        'username' => $user->getEmail(),
-                        'password' => $form->get('plainPassword')->getData(),
-                    ])
-            );
-
             return $this->redirectToRoute('locataires', [
                 'id' => $user->getId()]);
         }

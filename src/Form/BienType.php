@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BienType extends AbstractType
 {
@@ -23,22 +25,52 @@ class BienType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom de la résidence',
                 'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer le nom de la résidence',
+                    ]),
+                ],
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
                 'attr' => ['class' => 'tinymce'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer une adresse',
+                    ]),
+                ],
             ])
             ->add('city', TextType::class, [
                 'attr' => ['class' => 'tinymce'],
                 'label' => 'Ville',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer le nom de la ville',
+                    ]),
+                ],
             ])
             ->add('zip_code', TextType::class, [
                 'label' => 'Code postal',
                 'attr' => ['class' => 'tinymce'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer le code postal',
+                    ]),
+                    new Length([
+                        'min' => 5,
+                        'minMessage' => 'Code postal invalide',
+                        'max' => 5,
+                    ]),
+                ],
             ])
             ->add('country', TextType::class, [
                 'attr' => ['class' => 'tinymce'],
                 'label' => 'Pays',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer le nom du pays',
+                    ]),
+                ],
             ])
             ->add('inventory_file', FileType::class, [
                 'label' => 'Gabarit inventaire',
@@ -51,7 +83,23 @@ class BienType extends AbstractType
                             'application/pdf',
                             'application/x-pdf',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Format PDF uniquement',
+                    ])
+                ],
+            ])
+            ->add('photo', FileType::class, [
+                'label' => 'Photo',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Format jpeg, png, jpg uniquement',
                     ])
                 ],
             ])

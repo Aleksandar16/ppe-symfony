@@ -1,0 +1,30 @@
+#login {
+    padding-top: 50px;
+    padding-bottom: 170px;
+}
+
+#login h2 {
+    margin-bottom: 35px;
+}
+
+#login input {
+    width: 450px;
+}
+
+#login button {
+    margin-right: 25px;
+    height: 30px;
+    padding-bottom: 30px;
+    padding-right: 35px;
+    padding-left: 35px;
+    border-radius: 10px;
+}
+
+#login a {
+    margin-top: 30px;
+    color: black;
+}
+
+#login a:hover {
+    text-decoration: none;
+}

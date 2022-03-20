@@ -1,0 +1,30 @@
+
+/*PARTIE UTILISTATEURN NON CONNECTE*/
+
+#home {
+    padding-top: 50px;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+#home h2 {
+    margin-bottom: 100px;
+}
+
+#home a {
+    justify-content: center;
+    align-items: center;
+    color: black;
+    padding: 40px;
+    position: relative;
+    border: 1px solid rgba(59,58,58,0.46);
+    box-shadow: -3px 1px 2px black;
+    border-radius: 20px;
+    top: 0;
+}
+
+#home a:hover {
+    text-decoration: none;
+    top: -10px;
+    transition: top ease 0.5s;
+}
