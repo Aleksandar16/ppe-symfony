@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div>
+    <div class="upBien">
         <p>{{ bien | length }}  biens</p>
         <h2>Gestion des Biens</h2>
         <a type="button" class="btn btn-success" href="{{ path('create_bien')}}">Ajouter un bien</a>
     </div>
 
-    <table>
+    <table class="affichBien">
         <thead>
         <tr>
             <th>#</th>

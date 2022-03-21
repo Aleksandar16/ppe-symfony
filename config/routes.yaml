@@ -31,4 +31,7 @@ ajout_une_location:
     methods: ["GET", "POST"]
     controller: App\Controller\LocatairesController::ajoutUneLocation
 
-
+location:
+    path: /location
+    methods: ["GET"]
+    controller: App\Controller\LocationController::index
