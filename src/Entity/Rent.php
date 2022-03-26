@@ -68,7 +68,7 @@ class Rent
     private $tenant;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Residence::class)
+     * @ORM\ManyToOne(targetEntity=Residence::class , inversedBy="rents")
      */
     private $residence;
 

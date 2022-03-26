@@ -69,6 +69,16 @@ class Residence
      */
     private $photo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="residence")
+     */
+    private $rents;
+
+    public function __construct()
+    {
+        $this->rents = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -190,6 +200,36 @@ class Residence
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rent[]
+     */
+    public function getRents(): Collection
+    {
+        return $this->rents;
+    }
+
+    public function addRent(Rent $rent): self
+    {
+        if (!$this->rents->contains($rent)) {
+            $this->rents[] = $rent;
+            $rent->setResidence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRent(Rent $rent): self
+    {
+        if ($this->rents->removeElement($rent)) {
+            // set the owning side to null (unless already changed)
+            if ($rent->getResidence() === $this) {
+                $rent->setResidence(null);
+            }
+        }
 
         return $this;
     }

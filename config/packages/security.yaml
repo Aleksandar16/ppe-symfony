@@ -39,6 +39,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: '^/owner', roles: ROLE_OWNER }
-         - { path: '^/owner/representative', roles: ROLE_REPRESENTATIVE }
-         - { path: '^/owner/representative/tenant', roles: ROLE_TENANT }
+        - { path: '^/locataires', roles: [ROLE_OWNER] }
+        - { path: '^/mandataires', roles: [ROLE_OWNER] }
+        - { path: '^/biens', roles: [ROLE_OWNER, ROLE_REPRESENTATIVE] }
+        - { path: '^/tenant', roles: [ROLE_TENANT] }
+        - { path: '^/representative', roles: [ROLE_REPRESENTATIVE] }
+        - { path: '^/owner', roles: [ROLE_OWNER] }

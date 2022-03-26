@@ -48,18 +48,6 @@ class ResidenceRepository extends ServiceEntityRepository
     }
     */
 
-    public function nb()
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT COUNT(r.id)
-            FROM App\Entity\Residence r'
-        );
-
-        return $query->getResult();
-    }
-
     public function findByResidence(Residence $bien)
     {
         $entityManager = $this->getEntityManager();

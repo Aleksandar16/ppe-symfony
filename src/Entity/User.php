@@ -255,4 +255,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString() {
+        if ($this->firstname && $this->name) {
+            return $this->firstname . ' ' . $this->name;
+        }
+
+        return $this->name;
+    }
 }

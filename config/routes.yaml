@@ -6,21 +6,6 @@ kernel:
     resource: ../src/Kernel.php
     type: annotation
 
-locataires:
-    path: /locataires
-    methods: ["GET"]
-    controller: App\Controller\LocatairesController::index
-
-show_locataires:
-    path: /modif-locataires/{id}
-    methods: ["GET", "POST"]
-    controller: App\Controller\LocatairesController::upLocataire
-
-ajout_locataires:
-    path: /ajout-locataires
-    methods: ["GET", "POST"]
-    controller: App\Controller\LocatairesController::ajoutLocataires
-
 app_verify_email:
     path: /verify/email
     methods: ["GET"]

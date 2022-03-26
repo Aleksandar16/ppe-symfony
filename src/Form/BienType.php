@@ -105,6 +105,7 @@ class BienType extends AbstractType
             ])
             ->add('owner', EntityType::class, [
                 'class' => User::class,
+                'label' => 'Bailleur',
                 'choice_label' => 'name',
                 'attr' => array(
                     'class' => 'selectpicker'
@@ -117,6 +118,7 @@ class BienType extends AbstractType
             ])
             ->add('representative', EntityType::class, [
                 'class' => User::class,
+                'label' => 'Mandataire',
                 'choice_label' => 'name',
                 'attr' => array(
                     'class' => 'selectpicker'

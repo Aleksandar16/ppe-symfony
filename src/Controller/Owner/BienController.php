@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Owner;
 
-use App\Entity\Rent;
 use App\Entity\Residence;
 use App\Form\BienType;
 use App\Repository\RentRepository;
@@ -21,14 +20,20 @@ class BienController extends AbstractController
     #[Route('/bien', name: 'bien')]
     public function index(ResidenceRepository $residenceRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $bien = $residenceRepository->findAll();
+
         return $this->render('bien/index.html.twig', [
-            'bien' => $residenceRepository->findAll(),
+            'bien' => $bien,
         ]);
     }
 
     #[Route('/create-bien', name: 'create_bien')]
     public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $bien = new Residence();
 
         $form = $this->createForm(BienType::class, $bien);
@@ -93,6 +98,8 @@ class BienController extends AbstractController
     #[Route('/update-bien/{id}', name: 'update_bien')]
     public function update(RentRepository $rentRepository, ResidenceRepository $residenceRepository, Request $request, ManagerRegistry $doctrine, int $id, SluggerInterface $slugger): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $bien = $residenceRepository->find($id);
 
         if (null === $bien) {
@@ -160,6 +167,18 @@ class BienController extends AbstractController
         return $this->render('bien/update-bien.html.twig', [
             'form' => $form->createView(),
             'rent' => $rentResidence,
+            'bien' => $bien,
+        ]);
+    }
+
+    #[Route('/ajout-location/{id}', name: 'ajout_location')]
+    public function ajoutLocation(ResidenceRepository $residenceRepository): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $bien = $residenceRepository->findAll();
+
+        return $this->render('bien/index.html.twig', [
             'bien' => $bien,
         ]);
     }
