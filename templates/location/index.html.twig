@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LocationController!{% endblock %}
+{% block content %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-xs-12">
+                <h2 class="title-brown">
+                    hdeihdei
+                </h2>
+            </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            <div class="col-md-6 col-lg-6 col-xs-12">
+                <h2 class="title-brown">
+                    Mes locations
+                </h2>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/shake/ppe-symfony/src/Controller/LocationController.php'|file_link(0) }}">src/Controller/LocationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/shake/ppe-symfony/templates/location/index.html.twig'|file_link(0) }}">templates/location/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <table class="affichLocation">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date entrée</th>
+                            <th>Date sortie</th>
+                            <th>Locataire</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    {% for rent in rent %}
+                        <tbody>
+                            <tr>
+                                <td>{{ rent.id }}</td>
+                                <td>{{ rent.name }}</td>
+                                <td>{{ rent.firstname }}</td>
+                                <td>Gilbert</td>
+                                <td><a type="button" class="btn btn-secondary" href="">Accéder</a></td>
+                                
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
