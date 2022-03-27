@@ -171,7 +171,7 @@ class BienController extends AbstractController
         ]);
     }
 
-    #[Route('/ajout-location/{id}', name: 'ajout_location')]
+    #[Route('/ajout-location/{id}', name: 'ajout_locationbien')]
     public function ajoutLocation(ResidenceRepository $residenceRepository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

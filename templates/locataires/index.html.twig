@@ -23,7 +23,7 @@
                 <td>{{ locataires.id }}</td>
                 <td>{{ locataires.name }}</td>
                 <td>{{ locataires.firstname }}</td>
-                <td>3</td>
+                <td>{{ locataires.rent | length }}</td>
                 <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
 
             </tr>

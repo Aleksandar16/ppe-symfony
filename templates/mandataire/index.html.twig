@@ -13,7 +13,7 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Prénom</th>
-                <th>Nombre de locations</th>
+                <th>Nombre de résidences</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -23,7 +23,7 @@
                     <td>{{ mandataire.id }}</td>
                     <td>{{ mandataire.name }}</td>
                     <td>{{ mandataire.firstname }}</td>
-                    <td>1</td>
+                    <td>{{ mandataire.residence | length }}</td>
                     <td><a type="button" class="btn btn-secondary" href="{{ path('show_mandataire', {id: mandataire.id})}}">Mettre à jour les données</a></td>
                 </tr>
                 </tbody>

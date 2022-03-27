@@ -138,9 +138,11 @@ class LocatairesController extends AbstractController
             'user' => $user,
         ]);
     }
-    public function ajoutUneLocation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+
+
+    public function ajoutLocation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('locataires/ajoutUneLocation.html.twig', [
+        return $this->render('location/ajoutLocationLocataire.html.twig', [
         ]);
 
     }

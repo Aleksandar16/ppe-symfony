@@ -8,8 +8,10 @@ use App\Form\ModifMandataireType;
 use App\Repository\RentRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +36,10 @@ class MandataireController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        $mandataire = $userRepository->findByRoleMandataire();
+
         return $this->render('mandataire/index.html.twig', [
-            'mandataire' => $userRepository->findByRoleMandataire(),
+            'mandataire' => $mandataire,
         ]);
     }
 
@@ -100,7 +104,7 @@ class MandataireController extends AbstractController
     }
 
     #[Route('/modif-mandataire/{id}', name: 'show_mandataire')]
-    public function showMandataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
+    public function showMandataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, int $id): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 

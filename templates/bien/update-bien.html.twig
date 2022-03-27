@@ -23,7 +23,8 @@
                 <h3>Résidence {{ bien.name }}</h3>
                 <div>
                     {% if is_granted('ROLE_OWNER') %}
-                        <td><a type="button" class="btn btn-success" href="">Ajouter une location</a></td>
+                        <td><a type="button" class="btn btn-secondary disabled">Disponible à la location</a></td>
+                        <td><a type="button" class="btn btn-success" href="{{ path('ajout_location_residence', {id: bien.id})}}">Ajouter une location</a></td>
                     {% endif %}
                 </div>
                 <div id="headerModifBien">
@@ -34,9 +35,9 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Nombre de locations</th>
+                        <th>Date entrée</th>
+                        <th>Date sortie</th>
+                        <th>Locataire</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -44,9 +45,9 @@
                         <tbody>
                         <tr>
                             <td>{{ rent.id }}</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
+                            <td>{{ rent.getArrivalDate|date('d/F/Y') }}</td>
+                            <td>{{ rent.getDepartureDate|date('d/F/Y') }}</td>
+                            <td>{{ rent.tenant }}</td>
                             <td><a type="button" class="btn btn-secondary" href="">Accéder</a></td>
                         </tr>
                         </tbody>
