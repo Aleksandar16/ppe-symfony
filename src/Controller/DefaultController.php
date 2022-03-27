@@ -20,6 +20,8 @@ class DefaultController extends AbstractController
     #[Route('/profil', name: 'profil')]
     public function profil(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('profil.html.twig');
     }
 }

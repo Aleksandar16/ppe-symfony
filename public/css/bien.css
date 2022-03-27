@@ -1,0 +1,59 @@
+#biens {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
+
+#listeBiens {
+    margin-top: 30px;
+    width: 600px;
+    height: 200px;
+}
+
+#listeBiens a {
+    background-color: #AF593D;
+    color: white;
+    padding: 3px 35px;
+    border-radius: 10px;
+}
+
+#biensHeader {
+    display: flex;
+}
+
+#biensHeader h3 {
+    margin-right: 10px;
+}
+
+#biensHeader #biensNumber {
+    color: black;
+}
+
+#biensHeader a {
+    border-radius: 10px;
+}
+
+#ajoutBien {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
+
+#ajoutBien h3 {
+    margin-bottom: 40px;
+}
+
+#headerModifBien {
+    display: flex;
+}
+
+#headerModifBien h2 {
+    margin-right: 10px;
+}
+
+#headerModifBien h3 {
+    font-size: 32px;
+}
+
+#modifBien {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}

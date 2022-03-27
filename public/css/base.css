@@ -18,7 +18,7 @@
     padding: 40px;
     position: relative;
     border: 1px solid rgba(59,58,58,0.46);
-    box-shadow: -3px 1px 2px black;
+    box-shadow: -1px 1px 1px black;
     border-radius: 20px;
     top: 0;
 }
@@ -27,4 +27,8 @@
     text-decoration: none;
     top: -10px;
     transition: top ease 0.5s;
+}
+
+h3 {
+    color: #AF593D;
 }

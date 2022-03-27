@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    <div id="mandataire">
+        <div id="headerMandataire">
+            <h3>Gestion des mandataires</h3>
+            <a type="button" class="btn btn-success" href="{{ path('ajout_mandataire')}}">Nouveau mandataire</a>
+        </div>
 
-    <div class="upMandataire">
-        <h2 class="title-brown">Gestion des mandataires</h2>
-        <a type="button" class="btn btn-success" href="{{ path('ajout_mandataire')}}">Nouveau mandataire</a>
-    </div>
-
-    <table class="affichMandataire">
-        <thead>
+        <table id="listeMandataire" class="table col-lg-8">
+            <thead>
             <tr>
                 <th>#</th>
                 <th>Nom</th>
@@ -16,9 +16,9 @@
                 <th>Nombre de locations</th>
                 <th>Action</th>
             </tr>
-        </thead>
-        {% for mandataire in mandataire %}
-            <tbody>
+            </thead>
+            {% for mandataire in mandataire %}
+                <tbody>
                 <tr>
                     <td>{{ mandataire.id }}</td>
                     <td>{{ mandataire.name }}</td>
@@ -26,8 +26,9 @@
                     <td>1</td>
                     <td><a type="button" class="btn btn-secondary" href="{{ path('show_mandataire', {id: mandataire.id})}}">Mettre à jour les données</a></td>
                 </tr>
-            </tbody>
-        {% endfor %}
-    </table>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

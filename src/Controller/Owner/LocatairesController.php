@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Owner;
 
 use App\Entity\User;
-use App\Entity\Rent;
-use App\Form\ModifMandataireType;
-use App\Form\RegistrationFormType;
+use App\Form\LocataireType;
+use App\Form\ModifLocataireType;
 use App\Repository\RentRepository;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,15 +14,13 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use App\Form\MandataireType;
-use App\Repository\UserRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class MandataireController extends AbstractController
+class LocatairesController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
 
@@ -31,19 +29,24 @@ class MandataireController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/mandataire', name: 'mandataire')]
-    public function index(UserRepository $userRepository): Response
+    #[Route('/locataires', name: 'locataires')]
+    public function index(RentRepository $rentRepository,UserRepository $userRepository): Response
     {
-        return $this->render('mandataire/index.html.twig', [
-            'mandataire' => $userRepository->findByRoleMandataire(),
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('locataires/index.html.twig', [
+            'locataires' => $userRepository->findByRoleLocataire(),
         ]);
     }
 
-    #[Route('/ajouter-mandataire', name: 'ajout_mandataire')]
-    public function ajout(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    #[Route('/ajout-locataires', name: 'ajout_locataires')]
+    public function ajoutLocataires(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        //return $this->render('locataires/ajout.html.twig');
         $user = new User();
-        $form = $this->createForm(MandataireType::class, $user);
+        $form = $this->createForm(LocataireType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,14 +57,14 @@ class MandataireController extends AbstractController
                 )
             );
 
-            $user->setRoles(['ROLE_REPRESENTATIVE']);
+            $user->setRoles(['ROLE_TENANT']);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                    ->from(new Address('shakeel.jeerooburkhan995@gmail.com', 'BOT'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')->context([
@@ -70,10 +73,10 @@ class MandataireController extends AbstractController
                     ])
             );
 
-            return $this->redirectToRoute('mandataire');
+            return $this->redirectToRoute('locataires');
         }
 
-        return $this->render('mandataire/ajoutMandataire.html.twig', [
+        return $this->render('locataires/ajout.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -81,6 +84,8 @@ class MandataireController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         try {
@@ -97,18 +102,20 @@ class MandataireController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('/modif-mandataire/{id}', name: 'show_mandataire')]
-    public function showMandataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, RentRepository $rentRepository, int $id): Response
+    #[Route('/modif-locataires/{id}', name: 'show_locataires')]
+    public function upLocataire(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, int $id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $user = $userRepository->find($id);
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The techno with id %s was not found.', $id));
         }
 
-        $bienMandataire = $userRepository->findByResidence($user);
+        $rentLocataire = $userRepository->findRent($user);
 
-        $form = $this->createForm(ModifMandataireType::class, $user);
+        $form = $this->createForm(ModifLocataireType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -121,14 +128,20 @@ class MandataireController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('mandataire', [
+            return $this->redirectToRoute('locataires', [
                 'id' => $user->getId()]);
         }
 
-        return $this->render('mandataire/update-mandataire.html.twig', [
+        return $this->render('locataires/modif-locataires.html.twig', [
             'form' => $form->createView(),
-            'bien' => $bienMandataire,
+            'rent' => $rentLocataire,
             'user' => $user,
         ]);
+    }
+    public function ajoutUneLocation(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('location/index.html.twig', [
+        ]);
+
     }
 }

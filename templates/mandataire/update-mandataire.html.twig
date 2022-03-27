@@ -2,26 +2,40 @@
 
 {% block content %}
 
-    <div class="container">
-        <h2>Modifier Mandataire</h2>
+    <div class="container" id="modifMandataire">
+        <h3>{{ user.firstname }} {{ user.name }}</h3>
         <div class="row">
             <div class="col-lg-6 col-xs-12">
                 {{ form_start(form) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.firstname) }}
                 {{ form_row(form.email) }}
-                {{ form_row(form.submit, { 'label': 'Modifier' }) }}
+                {{ form_row(form.submit, { 'label': 'Mettre à jour' }) }}
             </div>
             <div class="col-lg-6 col-xs-12">
                 {{ form_row(form.plainPassword) }}
                 {{ form_end(form) }}
             </div>
         </div>
-        <div>
-            <h2>{{ user.firstname }} {{ user.name }} possède {{ bien | length }}  biens</h2>
-            {% for bien in bien %}
-                <p>{{ bien.name }}</p>
-            {% endfor %}
+        <div id="residencesMandataires">
+            <h4>{{ bien | length }} résidences gérées</h4>
+            <div class="row">
+                <div class="col-lg-6">
+                    {% for bien in bien %}
+                        <div class="row" id="residenceMandataire">
+                            <div class="col-lg-6">
+                                <img src="{{ asset('uploads/bien/' ~ bien.photo) }}" alt="image" style="width: 250px; height: 200px;">
+                            </div>
+                            <div class="col-lg-6">
+                                <p>{{ bien.name }}</p>
+                                <a type="button" class="btn btn" href="{{ path('update_bien', {id: bien.id})}}">Accéder</a>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-lg-6">
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 

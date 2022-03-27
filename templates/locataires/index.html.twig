@@ -1,36 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-
-    <div class="upLocataires">
-        <h2 class="title-brown">
-            Gestion des locataires
-            <a type="button" class="btn btn-success" href="{{ path('ajout_locataires')}}">Nouveau locataire</a>
-        </h2>
+<div id="listeLocataire">
+    <div id="headerLocataire">
+        <h3>Gestion des locataires </h3>
+        <a type="button" class="btn btn-success" href="{{ path('ajout_locataires')}}">Nouveau locataire</a>
     </div>
 
-    <table class="affichLocataires">
+    <table class="table col-lg-8">
         <thead>
-            <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Nombre de locations</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Nombre de locations</th>
+            <th scope="col">Action</th>
+        </tr>
         </thead>
         {% for locataires in locataires %}
             <tbody>
-                <tr>
-                    <td>{{ locataires.id }}</td>
-                    <td>{{ locataires.name }}</td>
-                    <td>{{ locataires.firstname }}</td>
-                    <td>3</td>
-                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
-                    
-                </tr>
+            <tr>
+                <td>{{ locataires.id }}</td>
+                <td>{{ locataires.name }}</td>
+                <td>{{ locataires.firstname }}</td>
+                <td>3</td>
+                <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
+
+            </tr>
             </tbody>
         {% endfor %}
     </table>
+</div>
 
 {% endblock %}

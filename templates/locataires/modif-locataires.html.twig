@@ -15,10 +15,11 @@
                 {{ form_end(form) }}
             </div>
             <div class="col-md-6 col-lg-6 col-xs-12">
-                <h2 class="title-brown">Liste des locations <a type="button" class="btn btn-success" href="{{ path('ajout_une_location')}}">Ajouter une location</a></h2>
+                <h2 class="title-brown">Liste des locations <a type="button" class="btn btn-success" href="{{ path('ajout_location', {id: user.id})}}">Ajouter une location</a></h2>
                 <h2></h2>
                 {% for rent in rent %}
                     <p>{{ rent.id }}</p>
+                    <p>{{ rent.tenant }}</p>
                 {% endfor %}
             </div>
         </div>

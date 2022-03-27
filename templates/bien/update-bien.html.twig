@@ -2,9 +2,10 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container" id="modifBien">
         <div class="row">
-            <div class="col-lg-6 col-xs-12">
+            <div class="col-lg-5 col-xs-12">
+                <img src="{{ asset('uploads/bien/' ~ bien.photo) }}" alt="image" width="100%">
                 {{ form_start(form) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.address) }}
@@ -12,17 +13,23 @@
                 {{ form_row(form.city) }}
                 {{ form_row(form.country) }}
                 {{ form_row(form.inventory_file) }}
+                {{ form_row(form.photo) }}
                 {{ form_row(form.owner) }}
                 {{ form_row(form.representative) }}
                 {{ form_row(form.submit, { 'label': 'Mettre à jour les données' }) }}
                 {{ form_end(form) }}
             </div>
-            <div class="col-lg-6 col-xs-12">
-                <h2>Résidence {{ bien.name }}</h2>
+            <div class="col-lg-7 col-xs-12">
+                <h3>Résidence {{ bien.name }}</h3>
                 <div>
-                    <td><a type="button" class="btn btn-success" href="">Ajouter une location</a></td>
+                    {% if is_granted('ROLE_OWNER') %}
+                        <td><a type="button" class="btn btn-success" href="">Ajouter une location</a></td>
+                    {% endif %}
                 </div>
-                <h3>{{ rent | length }} locations</h3>
+                <div id="headerModifBien">
+                    <h2>{{ rent | length }}</h2>
+                    <h3>locations</h3>
+                </div>
                 <table>
                     <thead>
                     <tr>

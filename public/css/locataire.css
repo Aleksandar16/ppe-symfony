@@ -1,0 +1,19 @@
+#listeLocataire {
+    margin-top: 50px;
+    margin-bottom: 300px;
+    margin-left: 15%;
+}
+
+#headerLocataire {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+#headerLocataire a {
+    border-radius: 10px;
+    padding: 7px 35px;
+}
+
+#headerLocataire h3 {
+    margin-right: 30px;
+}
