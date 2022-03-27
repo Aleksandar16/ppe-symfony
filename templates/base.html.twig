@@ -27,7 +27,8 @@
     <body>
         {% block body %}
             {% include 'includes/_header.html.twig' %}
-            {% block content %}
+            <div class="div-connect-page">            
+                {% block content %}
                 {% if is_granted('ROLE_OWNER') %}
                     <h2>{{ app.user.name }} {{ app.user.firstname }}</h2>
                     <p>Vous êtes inscrit en tant que <strong>bailleur</strong> sur la plateforme.</p>
@@ -37,23 +38,24 @@
                     <a href="{{ path('locataires') }}"> > Gérer les locataires</a>
                     <br>
                     <a href="{{ path('bien') }}"> > Gérer les biens</a>
-                {% elseif is_granted('ROLE_REPRESENTATIVE') %}
+                     {% elseif is_granted('ROLE_REPRESENTATIVE') %}
                     <h2>{{ app.user.name }} {{ app.user.firstname }}</h2>
                     <p>Vous êtes inscrit en tant que <strong>mandataire</strong> sur la plateforme.</p>
-                {% elseif is_granted('ROLE_TENANT') %}
+                    {% elseif is_granted('ROLE_TENANT') %}
                     <h2>{{ app.user.name }} {{ app.user.firstname }}</h2>
                     {% for rent in rent %}
                         {{ rent.id }}
                         {{ rent.getArrivalDate|date('d/F/Y') }}
                         <br>
                     {% endfor %}
-                {% else %}
+                    {% else %}
                     <div id="home">
                         <h2>Bienvenue sur le site de gestion de locations</h2>
                         <a href="{{ path('login') }}" id="link">Connexion</a>
                     </div>
-                {% endif %}
-            {% endblock %}
+                    {% endif %}
+                {% endblock %}
+            </div>
             {% include 'includes/_footer.html.twig' %}
         {% endblock %}
     </body>
