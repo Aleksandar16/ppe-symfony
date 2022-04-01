@@ -25,7 +25,6 @@
                 {% block content %}
                         {% if is_granted('ROLE_OWNER') %}
                         <h2>{{ app.user.name }} {{ app.user.firstname }}</h2>
-                            <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
                         <p>Vous êtes inscrit en tant que <strong>bailleur</strong> sur la plateforme.</p>
                         <p>Action :</p>
                         <a href="{{ path('mandataire') }}"> > Gérer les mandataires</a>
