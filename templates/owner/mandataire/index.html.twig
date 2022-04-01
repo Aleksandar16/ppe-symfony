@@ -6,7 +6,9 @@
             <h3>Gestion des mandataires</h3>
             <a type="button" class="btn btn-success" href="{{ path('ajout_mandataire')}}">Nouveau mandataire</a>
         </div>
+        <div>
 
+        </div>
         <table id="listeMandataire" class="table col-lg-8">
             <thead>
             <tr>
@@ -18,15 +20,17 @@
             </tr>
             </thead>
             {% for mandataire in mandataire %}
-                <tbody>
-                <tr>
-                    <td>{{ mandataire.id }}</td>
-                    <td>{{ mandataire.name }}</td>
-                    <td>{{ mandataire.firstname }}</td>
-                    <td>{{ mandataire.residence | length }}</td>
-                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_mandataire', {id: mandataire.id})}}">Mettre à jour les données</a></td>
-                </tr>
-                </tbody>
+                {% if mandataire.roles[0] == "ROLE_REPRESENTATIVE"  %}
+                    <tbody>
+                    <tr>
+                        <td>{{ mandataire.id }}</td>
+                        <td>{{ mandataire.name }}</td>
+                        <td>{{ mandataire.firstname }}</td>
+                        <td>{{ mandataire.representative | length }}</td>
+                        <td><a type="button" class="btn btn-secondary" href="{{ path('show_mandataire', {id: mandataire.id})}}">Mettre à jour les données</a></td>
+                    </tr>
+                    </tbody>
+                {% endif %}
             {% endfor %}
         </table>
     </div>

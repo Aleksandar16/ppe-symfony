@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+
+    <div class="container" id="modifLocataire">
+        <div class="row">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <h3 id="modifLocataireName">{{ user.firstname }} {{ user.name }}</h3>
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+                {{ form_row(form.submit, { 'label': 'Modifier' }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-lg-7 col-md-5 col-sm-5 col-xs-12">
+                <div id="headerModifLocataire">
+                    <h3>Liste des locations</h3>
+                    <a type="button" class="btn btn-success" href="{{ path('ajout_location_locataire', {id: user.id})}}">Ajouter une location</a>
+                </div>
+                {% for rent in rent %}
+                    <div id="listeBiens">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12">
+                                <img src="{{ asset('uploads/bien/' ~ rent.residence.photo) }}" alt="image" style="width: 250px; height: 200px;">
+                            </div>
+                            <div class="col-lg-5 col-md-4 col-sm-5 col-xs-12">
+                                <h3>{{ rent.residence.name }}</h3>
+                                <p>Du {{ rent.getArrivalDate|date('d/F/Y') }} au {{ rent.getDepartureDate|date('d/F/Y') }}</p>
+                                <p>Géré par {{ rent.residence.representative.firstname }} {{ rent.residence.representative.name }}</p>
+                                <a type="button" class="btn btn" href="{{ path('show_location', {id: rent.id})}}">Accéder à la location</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

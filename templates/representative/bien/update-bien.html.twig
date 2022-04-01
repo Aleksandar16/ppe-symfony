@@ -22,8 +22,25 @@
             <div class="col-lg-7 col-xs-12">
                 <h3>Résidence {{ bien.name }}</h3>
                 <div>
-                    {% if is_granted('ROLE_OWNER') %}
-                        <td><a type="button" class="btn btn-secondary disabled">Disponible à la location</a></td>
+                    {% if is_granted('ROLE_REPRESENTATIVE') %}
+                        <td>
+                            <a type="button" class="btn btn-secondary disabled">
+                                {% for rents in bien.rents %}
+                                    {% if bien.rents | length >= 1 %}
+                                        {% if loop.last %}
+                                            {% if rents.departuredate | date('Y/m/d') > 'now' | date ('Y/m/d') %}
+                                                Non disponible à la location
+                                            {% else %}
+                                                Disponible à la location
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if bien.rents | length == 0 %}
+                                    Disponible à la location
+                                {% endif %}
+                            </a>
+                        </td>
                         <td><a type="button" class="btn btn-success" href="{{ path('ajout_location_residence', {id: bien.id})}}">Ajouter une location</a></td>
                     {% endif %}
                 </div>
@@ -31,14 +48,14 @@
                     <h2>{{ rent | length }}</h2>
                     <h3>locations</h3>
                 </div>
-                <table>
+                <table class="table col-lg-8">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Date entrée</th>
-                        <th>Date sortie</th>
-                        <th>Locataire</th>
-                        <th>Action</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Date entrée</th>
+                        <th scope="col">Date sortie</th>
+                        <th scope="col">Locataire</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     {% for rent in rent %}
@@ -48,7 +65,7 @@
                             <td>{{ rent.getArrivalDate|date('d/F/Y') }}</td>
                             <td>{{ rent.getDepartureDate|date('d/F/Y') }}</td>
                             <td>{{ rent.tenant }}</td>
-                            <td><a type="button" class="btn btn-secondary" href="">Accéder</a></td>
+                            <td><a type="button" class="btn btn-secondary" href="{{ path('show_location', {id: rent.id})}}">Accéder</a></td>
                         </tr>
                         </tbody>
                     {% endfor %}

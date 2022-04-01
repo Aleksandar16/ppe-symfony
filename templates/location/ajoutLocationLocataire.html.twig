@@ -3,7 +3,37 @@
 {% block content %}
 
     <div class="container">
-        {{ form(form) }}
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>{{ user.firstname }} {{ user.name }}</h3>
+                {{ form(form) }}
+            </div>
+            <div class="col-lg-6">
+                <h3>Mes locations</h3>
+                <table class="table col-lg-8">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date entrée</th>
+                        <th>Date sortie</th>
+                        <th>Locataire</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    {% for rent in rent %}
+                        <tbody>
+                        <tr>
+                            <td>{{ rent.id }}</td>
+                            <td>{{ rent.getArrivalDate|date('d/F/Y') }}</td>
+                            <td>{{ rent.getDepartureDate|date('d/F/Y') }}</td>
+                            <td>{{ rent.tenant }}</td>
+                            <td><a type="button" class="btn btn-secondary" href="">Accéder</a></td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

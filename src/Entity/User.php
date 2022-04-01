@@ -66,6 +66,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $residence;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rent::class, mappedBy="tenant")
+     */
+    private $tenant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Residence::class, mappedBy="representative")
+     */
+    private $representative;
+
     public function __construct()
     {
         $this->rent = new ArrayCollection();
@@ -97,6 +107,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
+    }
+
+    public function getUserId(): int
+    {
+        return (int) $this->id;
     }
 
     /**
@@ -262,6 +277,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTenant(): Collection
+    {
+        return $this->tenant;
+    }
+
+    public function setTenant(?user $tenant): self
+    {
+        $this->tenant = $tenant;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRepresentative(): Collection
+    {
+        return $this->representative;
+    }
+
+    public function setRepresentative(?user $representative): self
+    {
+        $this->representative = $representative;
+
+        return $this;
     }
 }
 

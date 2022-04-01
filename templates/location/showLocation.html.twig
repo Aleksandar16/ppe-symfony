@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{ asset('uploads/bien/' ~ rent.residence.photo) }}" alt="image" style="width: 350px; height: 200px;">
+            </div>
+            <div class="col-lg-6" style="margin-left: 30px;">
+                <h3>{{ rent.residence.name }}</h3>
+                <p style="margin-top: 30px;">Locataire : {{ rent.tenant }}</p>
+                <div style="display: flex;">
+                    <a href="{{ asset('uploads/bien/' ~ rent.residence.inventoryfile) }}" style="text-decoration-color: #AF593D; color: #793318; font-weight: bold;">Télécharger </a>
+                    <p style="margin-left: 5px;"> le gabarit</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if is_granted("ROLE_REPRESENTATIVE") %}
+        {{ form(form) }}
+    {% elseif is_granted("ROLE_TENANT") %}
+        {{ form(form) }}
+    {% endif %}
+    <div style="margin-top: 40px; margin-bottom: 300px; margin-left: 5%; margin-right: 5%;">
+        <h3 style="margin-bottom: 30px;">Synthèse</h3>
+        <div class="card-group card-deck">
+            {% if rent.arrivalDate | date('Y/m/d') < 'now' | date('Y/m/d') %}
+                <div class="card" style="border: green 1px solid;">
+                    <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Arrivée du locataire</div>
+                    <div class="card-body" style="background-color: green; color:white;">
+                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
+                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                    </div>
+                </div>
+            {% elseif rent.arrivalDate | date('Y/m/d') > 'now' | date('Y/m/d') %}
+                <div class="card" style="border: orange 1px solid;">
+                    <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Arrivée du locataire</div>
+                    <div class="card-body" style="background-color: orange; color:black;">
+                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
+                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card" style="border: orange 1px solid;">
+                    <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Arrivée du locataire</div>
+                    <div class="card-body" style="background-color: black; color:white;">
+                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
+                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                    </div>
+                </div>
+            {% endif %}
+            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
+            <div class="card">
+                <div class="card-header" style="font-size: 15px;">Signature de l'inventaire</div>
+                <div class="card-body">
+                    <h6 class="card-title">Titre de la première carte</h6>
+                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                </div>
+            </div>
+            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
+            <div class="card">
+                <div class="card-header" style="font-size: 15px;">Signature de l'inventaire</div>
+                <div class="card-body">
+                    <h6 class="card-title">Titre de la première carte</h6>
+                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                </div>
+            </div>
+            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
+            <div class="card">
+                <div class="card-header" style="font-size: 15px;">Signature fin état des lieux de l'inventaire</div>
+                <div class="card-body">
+                    <h6 class="card-title">Titre de la première carte</h6>
+                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                </div>
+            </div>
+            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
+            <div class="card">
+                <div class="card-header" style="font-size: 15px;">Signature fin état des lieux de l'inventaire</div>
+                <div class="card-body">
+                    <h6 class="card-title">Titre de la seconde carte</h6>
+                    <p class="card-text">Une ligne de texte dans notre seconde carte.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,10 +1,13 @@
 #footerText {
     background-color: rgba(0, 0, 0, 0.9);
-    padding: 50px;
-    padding-bottom: 210px;
+    padding: 50px 50px 210px;
 }
 
-li {
+.footerLeft li {
+    margin-left: 60px;
+    margin-right: 190px;
+}
+.footerRight li {
     margin-left: 60px;
     margin-right: 190px;
 }
@@ -26,4 +29,15 @@ li {
 
 .footerRight {
     float: right;
+}
+
+@media only screen and (max-width: 1000px) {
+    .footerLeft li {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .footerRight li {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

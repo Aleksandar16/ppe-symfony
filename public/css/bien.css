@@ -9,6 +9,10 @@
     height: 200px;
 }
 
+#listeBiens #biensBlock {
+    display: flex;
+}
+
 #listeBiens a {
     background-color: #AF593D;
     color: white;
@@ -56,4 +60,15 @@
 #modifBien {
     margin-top: 50px;
     margin-bottom: 300px;
+}
+
+@media only screen and (max-width: 1000px) {
+    #listeBiens {
+        display: block;
+        height: 10%;
+        width: 100%;
+    }
+    #biensBlock {
+        display: block;
+    }
 }

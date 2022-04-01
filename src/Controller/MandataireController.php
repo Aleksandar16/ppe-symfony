@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Controller\Owner;
+namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\MandataireType;
 use App\Form\ModifMandataireType;
-use App\Repository\RentRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\Types\Array_;
+use Faker\Factory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +21,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+#[IsGranted('ROLE_OWNER')]
 class MandataireController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
@@ -36,9 +36,9 @@ class MandataireController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $mandataire = $userRepository->findByRoleMandataire();
+        $mandataire = $userRepository->findAll();
 
-        return $this->render('mandataire/index.html.twig', [
+        return $this->render('owner/mandataire/index.html.twig', [
             'mandataire' => $mandataire,
         ]);
     }
@@ -49,21 +49,14 @@ class MandataireController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = new User();
+        $faker = Factory::create('fr_FR');
         $form = $this->createForm(MandataireType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $user->setPassword($faker->password());
 
             $user->setRoles(['ROLE_REPRESENTATIVE']);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
 
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -72,14 +65,20 @@ class MandataireController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')->context([
                         'username' => $user->getEmail(),
-                        'password' => $form->get('plainPassword')->getData(),
+                        'password' => $user->getPassword(),
                     ])
             );
+
+            $hash = $userPasswordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hash);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $this->redirectToRoute('mandataire');
         }
 
-        return $this->render('mandataire/ajoutMandataire.html.twig', [
+        return $this->render('owner/mandataire/ajoutMandataire.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -133,7 +132,7 @@ class MandataireController extends AbstractController
                 'id' => $user->getId()]);
         }
 
-        return $this->render('mandataire/update-mandataire.html.twig', [
+        return $this->render('owner/mandataire/update-mandataire.html.twig', [
             'form' => $form->createView(),
             'bien' => $bienMandataire,
             'user' => $user,

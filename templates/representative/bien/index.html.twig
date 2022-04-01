@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container" id="biens">
+        <div>
+            <div id="biensHeader">
+                <h3 id="biensNumber">{{ bien | length }}</h3>
+                <h3>biens</h3>
+                <a type="button" class="btn btn-success" href="{{ path('create_bien')}}">Ajouter un bien</a>
+            </div>
+        </div>
+
+        {% for bien in bien %}
+            <div id="listeBiens">
+                <div class="row">
+                    <div>
+                        <img src="{{ asset('uploads/bien/' ~ bien.photo) }}" alt="image" style="width: 250px; height: 200px;">
+                    </div>
+                    <div>
+                        <h3>{{ bien.name }}</h3>
+                        <div style="display: flex">
+                            <p style="margin-right: 20px">
+                                {% for rents in bien.rents %}
+                                    {% if bien.rents | length >= 1 %}
+                                        {% if loop.last %}
+                                            {% if rents.departuredate | date('Y/m/d') > 'now' | date ('Y/m/d') %}
+                                                Actuellement Occupé
+                                            {% else %}
+                                                Non occupé
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if bien.rents | length == 0 %}
+                                    Non occupé
+                                {% endif %}
+                            </p>
+                            <p>Géré par {{ bien.representative }}</p>
+                        </div>
+                        <p>{{ bien.rents | length }} locations au total</p>
+                        <a type="button" class="btn btn" href="{{ path('update_bien', {id: bien.id})}}">Accéder</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

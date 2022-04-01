@@ -48,4 +48,29 @@ class RentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findResidence(Rent $rent): ?Rent
+    {
+        return $this->createQueryBuilder('residence')
+            ->andWhere('r.exampleField = :val')
+            ->setParameter('val', $rent)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+    public function findRentTenant(int $id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT rent
+            FROM App\Entity\Rent rent
+            INNER JOIN rent.tenant User
+            WHERE User.id = :tenant'
+        )->setParameter('tenant', $id);
+
+        return $query->getResult();
+    }
+
 }

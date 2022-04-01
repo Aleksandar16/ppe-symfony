@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Owner;
+namespace App\Controller;
 
 use App\Entity\Residence;
 use App\Form\BienType;
@@ -13,20 +13,38 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BienController extends AbstractController
 {
-    #[Route('/bien', name: 'bien')]
-    public function index(ResidenceRepository $residenceRepository): Response
+    private $security;
+
+    #[Route('bien', name: 'bien')]
+    public function index(ResidenceRepository $residenceRepository, Security $security): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $bien = $residenceRepository->findAll();
+        $this->security = $security;
 
-        return $this->render('bien/index.html.twig', [
-            'bien' => $bien,
-        ]);
+        $user = $this->security->getUser()->getRoles();
+
+        if ($user[0] == "ROLE_OWNER") {
+            $bien = $residenceRepository->findAll();
+            return $this->render('owner/bien/index.html.twig', [
+                'bien' => $bien,
+            ]);
+        }
+        elseif ($user[0] == "ROLE_REPRESENTATIVE") {
+            $id = $this->security->getUser()->getUserId();
+            $bien = $residenceRepository->findResidenceRepresentative($id);
+            return $this->render('representative/bien/index.html.twig', [
+               'bien' => $bien,
+            ]);
+        }
+
+        else
+            return  $this->render('profil.html.twig');
     }
 
     #[Route('/create-bien', name: 'create_bien')]
@@ -90,10 +108,11 @@ class BienController extends AbstractController
             return $this->redirectToRoute('bien');
         }
 
-        return $this->render('bien/create-bien.html.twig', [
+        return $this->render('owner/bien/create-bien.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/update-bien/{id}', name: 'update_bien')]
     public function update(RentRepository $rentRepository, ResidenceRepository $residenceRepository, Request $request, ManagerRegistry $doctrine, int $id, SluggerInterface $slugger): Response
@@ -164,7 +183,7 @@ class BienController extends AbstractController
                 'id' => $bien->getId()]);
         }
 
-        return $this->render('bien/update-bien.html.twig', [
+        return $this->render('owner/bien/update-bien.html.twig', [
             'form' => $form->createView(),
             'rent' => $rentResidence,
             'bien' => $bien,
@@ -178,7 +197,7 @@ class BienController extends AbstractController
 
         $bien = $residenceRepository->findAll();
 
-        return $this->render('bien/index.html.twig', [
+        return $this->render('owner/bien/index.html.twig', [
             'bien' => $bien,
         ]);
     }

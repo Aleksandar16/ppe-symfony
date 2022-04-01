@@ -21,6 +21,14 @@ class RentLocataireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('residence', EntityType::class, [
+                'class' => Residence::class,
+                'label' => 'Résidence',
+                'choice_label' => 'name',
+                'attr' => array(
+                    'class' => 'selectpicker'
+                ),
+            ])
             ->add('inventory_file', FileType::class, [
                 'label' => 'Gabarit inventaire',
                 'mapped' => false,
@@ -38,17 +46,11 @@ class RentLocataireType extends AbstractType
             ])
             ->add('arrival_date', DateType::class, [
                 'widget' => 'single_text',
+                'label' => 'Début de la location',
             ])
             ->add('departure_date', DateType::class, [
                 'widget' => 'single_text',
-            ])
-            ->add('residence', EntityType::class, [
-                'class' => Residence::class,
-                'label' => 'Résidence',
-                'choice_label' => 'name',
-                'attr' => array(
-                    'class' => 'selectpicker'
-                ),
+                'label' => 'Fin de la location',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',

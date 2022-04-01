@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container" id="modifBien">
+        <div class="row">
+            <div class="col-lg-5 col-xs-12">
+                <img src="{{ asset('uploads/bien/' ~ bien.photo) }}" alt="image" width="100%">
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.zip_code) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.country) }}
+                {{ form_row(form.inventory_file) }}
+                {{ form_row(form.photo) }}
+                {{ form_row(form.owner) }}
+                {{ form_row(form.representative) }}
+                {{ form_row(form.submit, { 'label': 'Mettre à jour les données' }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-lg-7 col-xs-12">
+                <h3>Résidence {{ bien.name }}</h3>
+                <div>
+                    {% if is_granted('ROLE_OWNER') %}
+                        <td>
+                            <a type="button" class="btn btn-secondary disabled">
+                                {% for rents in bien.rents %}
+                                    {% if bien.rents | length >= 1 %}
+                                        {% if loop.last %}
+                                            {% if rents.departuredate | date('Y/m/d') > 'now' | date ('Y/m/d') %}
+                                                Non disponible à la location
+                                            {% else %}
+                                                Disponible à la location
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if bien.rents | length == 0 %}
+                                    Disponible à la location
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td><a type="button" class="btn btn-success" href="{{ path('ajout_location_residence', {id: bien.id})}}">Ajouter une location</a></td>
+                    {% endif %}
+                </div>
+                <div id="headerModifBien">
+                    <h2>{{ rent | length }}</h2>
+                    <h3>locations</h3>
+                </div>
+                <table class="table col-lg-8">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date entrée</th>
+                        <th scope="col">Date sortie</th>
+                        <th scope="col">Locataire</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    {% for rent in rent %}
+                        <tbody>
+                        <tr>
+                            <td>{{ rent.id }}</td>
+                            <td>{{ rent.getArrivalDate()|date('d/F/Y') }}</td>
+                            <td>{{ rent.getDepartureDate()|date('d/F/Y') }}</td>
+                            <td>{{ rent.tenant() }}</td>
+                            <td><a type="button" class="btn btn-secondary" href="{{ path('show_location', {id: rent.id})}}">Accéder</a></td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

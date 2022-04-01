@@ -2,6 +2,7 @@
     margin-top: 50px;
     margin-bottom: 300px;
     margin-left: 15%;
+    width: 50%;
 }
 
 #headerLocataire {
@@ -16,4 +17,27 @@
 
 #headerLocataire h3 {
     margin-right: 30px;
+}
+
+#ajoutLocataire {
+    margin-top:50px;
+    margin-bottom: 300px;
+}
+
+#modifLocataire {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
+
+#modifLocataire h3 {
+    margin-right: 30px;
+}
+
+#modifLocataire #headerModifLocataire {
+    display: flex;
+    margin-bottom: 60px;
+}
+
+#modifLocataireName {
+    margin-bottom: 40px;
 }

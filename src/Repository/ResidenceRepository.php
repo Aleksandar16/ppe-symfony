@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Residence;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -58,6 +59,20 @@ class ResidenceRepository extends ServiceEntityRepository
             INNER JOIN rent.residence Residence
             WHERE Residence.id = :residence'
         )->setParameter('residence', $bien);
+
+        return $query->getResult();
+    }
+
+    public function findResidenceRepresentative(int $id)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT residence
+            FROM App\Entity\Residence residence
+            INNER JOIN residence.representative User
+            WHERE User.id = :representative'
+        )->setParameter('representative', $id);
 
         return $query->getResult();
     }

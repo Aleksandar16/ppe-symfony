@@ -17,17 +17,19 @@
             <th scope="col">Action</th>
         </tr>
         </thead>
+        {% set pageCount = 0 %}
         {% for locataires in locataires %}
-            <tbody>
-            <tr>
-                <td>{{ locataires.id }}</td>
-                <td>{{ locataires.name }}</td>
-                <td>{{ locataires.firstname }}</td>
-                <td>{{ locataires.rent | length }}</td>
-                <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
-
-            </tr>
-            </tbody>
+            {% if locataires.roles[0] == "ROLE_TENANT" %}
+                <tbody>
+                <tr>
+                    <td>{{ locataires.id }}</td>
+                    <td>{{ locataires.name }}</td>
+                    <td>{{ locataires.firstname }}</td>
+                    <td>{{ locataires.tenant | length }}</td>
+                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
+                </tr>
+                </tbody>
+            {% endif %}
         {% endfor %}
     </table>
 </div>
