@@ -137,18 +137,21 @@ class LocationController extends AbstractController
 
                 $entityManager = $doctrine->getManager();
 
+                $date = new \DateTime('@'.strtotime('now'));
+
+                $rent->setTenantValidatedAt($date);
+
                 $rent = $form->getData();
 
                 $entityManager->persist($rent);
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('locataires', [
-                    'id' => $user->getId()]);
+                return $this->redirectToRoute('app_home');
             }
 
             return $this->render('location/showLocation.html.twig', [
-                'form' => $form->createView(),
+                'formTenant' => $form->createView(),
                 'rent' => $rent,
             ]);
 
@@ -162,18 +165,21 @@ class LocationController extends AbstractController
 
                 $entityManager = $doctrine->getManager();
 
+                $date = new \DateTime('@'.strtotime('now'));
+
+                $rent->setRepresentativeValidatedAt($date);
+
                 $rent = $form->getData();
 
                 $entityManager->persist($rent);
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('locataires', [
-                    'id' => $user->getId()]);
+                return $this->redirectToRoute('app_home');
             }
 
             return $this->render('location/showLocation.html.twig', [
-                'form' => $form->createView(),
+                'formRepresentative' => $form->createView(),
                 'rent' => $rent,
             ]);
         }

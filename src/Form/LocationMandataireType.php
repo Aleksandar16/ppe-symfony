@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Rent;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +16,9 @@ class LocationMandataireType extends AbstractType
         $builder
             ->add('representative_comments')
             ->add('representative_signature')
-            ->add('representative_validated_at')
+            ->add('submit', SubmitType::class, [
+                'label' => 'Sauvegarder',
+            ]);
         ;
     }
 

@@ -1,12 +1,6 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, serif;
-}
 
 :root {
-    --dark: #6a5acd;
+    --dark: #9f5540;
     --light: #ffffff;
 }
 
@@ -16,12 +10,18 @@ a {
 
 header {
     background-color: var(--dark);
-    padding: 20px;
-    color: var(--light);
+    padding: 45px 10%;
+    color: var(--dark);
+}
+
+header #logo {
+    background-color: white;
+    padding: 15px 65px;
 }
 
 header a {
     color: var(--light);
+    font-size: 25px;
 }
 
 #menu-toggle {
@@ -63,11 +63,16 @@ header label {
     padding: 20px 0;
 }
 
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+}
+
 .nav-links li:nth-child(1) {
     padding-top: 40px;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 1280px) {
     .toggle-icon {
         display: none;
     }
@@ -75,6 +80,10 @@ header label {
     header {
         display: flex;
         justify-content: space-between;
+    }
+
+    header #logo {
+        padding-bottom: 10px;
     }
 
     .nav-links li {

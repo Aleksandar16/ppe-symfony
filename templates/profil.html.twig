@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="affichProfil">
-        <h3>{{ app.user.firstname }} {{ app.user.name }}</h3>
+        <h2>{{ app.user.firstname }} {{ app.user.name }}</h2>
 
         {% if is_granted('ROLE_OWNER') %}
             <p>Vous êtes inscrit en tant que <strong>bailleur</strong> sur la plateforme.</p>

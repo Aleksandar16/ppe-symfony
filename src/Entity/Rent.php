@@ -33,7 +33,7 @@ class Rent
     private $departure_date;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $tenant_comments;
 
@@ -43,7 +43,7 @@ class Rent
     private $tenant_signature;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="datetime")
      */
     private $tenant_validated_at;
 
@@ -76,6 +76,36 @@ class Rent
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="rent")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tenant_comments_end;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tenant_signature_end;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $tenant_validated_at_end;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $representative_comments_end;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $representative_signature_end;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $representative_validated_at_end;
 
     public function getId(): ?int
     {
@@ -142,12 +172,12 @@ class Rent
         return $this;
     }
 
-    public function getTenantValidatedAt(): ?string
+    public function getTenantValidatedAt(): ?\DateTimeInterface
     {
         return $this->tenant_validated_at;
     }
 
-    public function setTenantValidatedAt(string $tenant_validated_at): self
+    public function setTenantValidatedAt(\DateTimeInterface $tenant_validated_at): self
     {
         $this->tenant_validated_at = $tenant_validated_at;
 
@@ -222,6 +252,78 @@ class Rent
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTenantCommentsEnd(): ?string
+    {
+        return $this->tenant_comments_end;
+    }
+
+    public function setTenantCommentsEnd(?string $tenant_comments_end): self
+    {
+        $this->tenant_comments_end = $tenant_comments_end;
+
+        return $this;
+    }
+
+    public function getTenantSignatureEnd(): ?string
+    {
+        return $this->tenant_signature_end;
+    }
+
+    public function setTenantSignatureEnd(?string $tenant_signature_end): self
+    {
+        $this->tenant_signature_end = $tenant_signature_end;
+
+        return $this;
+    }
+
+    public function getTenantValidatedAtEnd(): ?\DateTimeInterface
+    {
+        return $this->tenant_validated_at_end;
+    }
+
+    public function setTenantValidatedAtEnd(?\DateTimeInterface $tenant_validated_at_end): self
+    {
+        $this->tenant_validated_at_end = $tenant_validated_at_end;
+
+        return $this;
+    }
+
+    public function getRepresentativeCommentsEnd(): ?string
+    {
+        return $this->representative_comments_end;
+    }
+
+    public function setRepresentativeCommentsEnd(?string $representative_comments_end): self
+    {
+        $this->representative_comments_end = $representative_comments_end;
+
+        return $this;
+    }
+
+    public function getRepresentativeSignatureEnd(): ?string
+    {
+        return $this->representative_signature_end;
+    }
+
+    public function setRepresentativeSignatureEnd(?string $representative_signature_end): self
+    {
+        $this->representative_signature_end = $representative_signature_end;
+
+        return $this;
+    }
+
+    public function getRepresentativeValidatedAtEnd(): ?\DateTimeInterface
+    {
+        return $this->representative_validated_at_end;
+    }
+
+    public function setRepresentativeValidatedAtEnd(?\DateTimeInterface $representative_validated_at_end): self
+    {
+        $this->representative_validated_at_end = $representative_validated_at_end;
 
         return $this;
     }

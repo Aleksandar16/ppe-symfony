@@ -13,10 +13,10 @@
         {% for bien in bien %}
             <div id="listeBiens">
                 <div class="row">
-                    <div>
+                    <div class="col-lg-5">
                         <img src="{{ asset('uploads/bien/' ~ bien.photo) }}" alt="image" style="width: 250px; height: 200px;">
                     </div>
-                    <div>
+                    <div class="col-lg-7">
                         <h3>{{ bien.name }}</h3>
                         <div style="display: flex">
                             <p style="margin-right: 20px">

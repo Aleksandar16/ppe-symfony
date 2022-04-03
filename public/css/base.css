@@ -31,13 +31,10 @@
 
 h3 {
     color: #AF593D;
-<<<<<<< Updated upstream
-=======
 }
 
-.div-connect-page{
-    /*margin-left: 15%;*/
-    margin-top: 75px;
-    margin-bottom: 75px;
->>>>>>> Stashed changes
+#base {
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-bottom: 300px;
 }

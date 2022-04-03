@@ -11,26 +11,38 @@
                 <h3>{{ rent.residence.name }}</h3>
                 <p style="margin-top: 30px;">Locataire : {{ rent.tenant }}</p>
                 <div style="display: flex;">
-                    <a href="{{ asset('uploads/bien/' ~ rent.residence.inventoryfile) }}" style="text-decoration-color: #AF593D; color: #793318; font-weight: bold;">Télécharger </a>
+                    <a href="{{ asset('uploads/bien/' ~ rent.inventoryFile) }}" style="text-decoration-color: #AF593D; color: #793318; font-weight: bold;">Télécharger </a>
                     <p style="margin-left: 5px;"> le gabarit</p>
                 </div>
             </div>
         </div>
     </div>
     {% if is_granted("ROLE_REPRESENTATIVE") %}
-        {{ form(form) }}
-    {% elseif is_granted("ROLE_TENANT") %}
-        {{ form(form) }}
+        {% if rent.representativeSignature is null %}
+            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                {% if rent.tenantSignature is not null %}
+                    {{ form(formRepresentative) }}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if is_granted("ROLE_TENANT") %}
+        {% if rent.tenantSignature is null %}
+            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                {{ form(formTenant) }}
+            {% endif %}
+        {% endif %}
     {% endif %}
     <div style="margin-top: 40px; margin-bottom: 300px; margin-left: 5%; margin-right: 5%;">
-        <h3 style="margin-bottom: 30px;">Synthèse</h3>
+        <h3 style="margin-bottom: 30px;">{{ dump(rent) }}</h3>
+        {# 1ERE ETAPE #}
         <div class="card-group card-deck">
-            {% if rent.arrivalDate | date('Y/m/d') < 'now' | date('Y/m/d') %}
+            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
                 <div class="card" style="border: green 1px solid;">
                     <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Arrivée du locataire</div>
                     <div class="card-body" style="background-color: green; color:white;">
-                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
-                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('d/m/Y') }}</h6>
+                        <p class="card-text">Le locataire est arrivé à la résidence.</p>
                     </div>
                 </div>
             {% elseif rent.arrivalDate | date('Y/m/d') > 'now' | date('Y/m/d') %}
@@ -38,50 +50,152 @@
                     <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Arrivée du locataire</div>
                     <div class="card-body" style="background-color: orange; color:black;">
                         <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
-                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
-                    </div>
-                </div>
-            {% else %}
-                <div class="card" style="border: orange 1px solid;">
-                    <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Arrivée du locataire</div>
-                    <div class="card-body" style="background-color: black; color:white;">
-                        <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('Y/m/d') }}</h6>
-                        <p class="card-text">Une ligne de texte dans notre première carte.</p>
+                        <p class="card-text">Le locataire est arrivé à la résidence.</p>
                     </div>
                 </div>
             {% endif %}
-            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
-            <div class="card">
-                <div class="card-header" style="font-size: 15px;">Signature de l'inventaire</div>
-                <div class="card-body">
-                    <h6 class="card-title">Titre de la première carte</h6>
-                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+            <h1 style="margin-top: 50px; font-weight: bold; font-size: 50px"> > </h1>
+            {# 2EME ETAPE #}
+            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                {% if rent.tenantValidatedAt is not null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature de l'inventaire</div>
+                        <div class="card-body" style="background-color: green; color:white;">
+                            <h6 class="card-title">A signer le {{ rent.tenantValidatedAt | date('d/m/Y') }}</h6>
+                            {% if rent.tenantComments is null %}
+                                <p class="card-text">Par le <strong>locataire</strong> sans commentaire.</p>
+                            {% endif %}
+                            {% if rent.tenantComments is not null %}
+                                <p class="card-text">Par le <strong>locataire</strong> avec un commentaire.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                {% if rent.tenantValidatedAt is null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Signature de l'inventaire</div>
+                        <div class="card-body" style="background-color: orange; color:black;">
+                            <h6 class="card-title">A signer le {{ rent.tenantValidatedAt | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>locataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if rent.arrivalDate | date('Y/m/d') > 'now' | date('Y/m/d') %}
+                <div class="card">
+                    <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Signature de l'inventaire</div>
+                    <div class="card-body" style="background-color: black; color:white;">
+                        <h6 class="card-title">A signer le {{ rent.tenantValidatedAt | date('d/m/Y') }}</h6>
+                        <p class="card-text">Par le <strong>locataire</strong>.</p>
+                    </div>
                 </div>
-            </div>
-            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
-            <div class="card">
-                <div class="card-header" style="font-size: 15px;">Signature de l'inventaire</div>
-                <div class="card-body">
-                    <h6 class="card-title">Titre de la première carte</h6>
-                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+            {% endif %}
+            <h1 style="margin-top: 50px; font-weight: bold; font-size: 50px"> > </h1>
+            {# 3EME ETAPE #}
+                {% if rent.tenantValidatedAt is not null %}
+                    {% if rent.representativeValidatedAt is not null %}
+                        <div class="card">
+                            <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature de l'inventaire</div>
+                            <div class="card-body" style="background-color: green; color:white;">
+                                <h6 class="card-title">A signer le {{ rent.representativeValidatedAt | date('d/m/Y') }}</h6>
+                                {% if rent.representativeComments is null %}
+                                    <p class="card-text">Par le <strong>mandataire</strong> sans commentaire.</p>
+                                {% endif %}
+                                {% if rent.representativeComments is not null %}
+                                    <p class="card-text">Par le <strong>mandataire</strong> avec un commentaire.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                {% if rent.tenantValidatedAt is not null %}
+                    {% if rent.representativeValidatedAt is null %}
+                        <div class="card">
+                            <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Signature de l'inventaire</div>
+                            <div class="card-body" style="background-color: orange; color:black;">
+                                <h6 class="card-title">A signer le {{ rent.representativeValidatedAt | date('d/m/Y') }}</h6>
+                                <p class="card-text">Par le <strong>mandataire</strong>.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                {% if rent.tenantValidatedAt is null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Signature de l'inventaire</div>
+                        <div class="card-body" style="background-color: black; color:white;">
+                            <h6 class="card-title">A signer le {{ rent.representativeValidatedAt | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>mandataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif%}
+            <h1 style="margin-top: 50px; font-weight: bold; font-size: 50px"> > </h1>
+            {# 4EME ETAPE #}
+            {% if rent.representativeValidatedAt is not null %}
+                {% if rent.tenantValidatedAtEnd is not null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature fin état des lieux de l'inventaire</div>
+                        <div class="card-body" style="background-color: green; color:white;">
+                            <h6 class="card-title">A signer le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>locataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if rent.representativeValidatedAt is not null %}
+                {% if rent.tenantValidatedAtEnd is null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Signature fin état des lieux de l'inventaire</div>
+                        <div class="card-body" style="background-color: orange; color:black;">
+                            <h6 class="card-title">A signer le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>locataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if rent.representativeValidatedAt is null %}
+                <div class="card">
+                    <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Signature fin état des lieux de l'inventaire</div>
+                    <div class="card-body" style="background-color: black; color:white;">
+                        <h6 class="card-title">A signer le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}</h6>
+                        <p class="card-text">Par le <strong>locataire</strong>.</p>
+                    </div>
                 </div>
-            </div>
-            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
-            <div class="card">
-                <div class="card-header" style="font-size: 15px;">Signature fin état des lieux de l'inventaire</div>
-                <div class="card-body">
-                    <h6 class="card-title">Titre de la première carte</h6>
-                    <p class="card-text">Une ligne de texte dans notre première carte.</p>
+            {% endif %}
+            <h1 style="margin-top: 50px; font-weight: bold; font-size: 50px"> > </h1>
+            {# 5 ETAPE #}
+            {% if rent.tenantValidatedAtEnd is not null %}
+                {% if rent.representativeValidatedAtEnd is not null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature fin état des lieux de l'inventaire</div>
+                        <div class="card-body" style="background-color: green; color:white;">
+                            <h6 class="card-title">A signer le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>mandataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif%}
+            {% endif %}
+            {% if rent.tenantValidatedAtEnd is not null %}
+                {% if rent.representativeValidatedAtEnd is null %}
+                    <div class="card">
+                        <div class="card-header" style="font-size: 15px; background-color: orange; color:black;">Signature fin état des lieux de l'inventaire</div>
+                        <div class="card-body" style="background-color: orange; color:black;">
+                            <h6 class="card-title">A signer le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}</h6>
+                            <p class="card-text">Par le <strong>mandataire</strong>.</p>
+                        </div>
+                    </div>
+                {% endif%}
+            {% endif %}
+            {% if rent.tenantValidatedAtEnd is null %}
+                <div class="card">
+                    <div class="card-header" style="font-size: 15px; background-color: black; color:white;">Signature fin état des lieux de l'inventaire</div>
+                    <div class="card-body" style="background-color: black; color:white;">
+                        <h6 class="card-title">A signer le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}</h6>
+                        <p class="card-text">Par le <strong>mandataire</strong>.</p>
+                    </div>
                 </div>
-            </div>
-            <h1 style="margin-top: 70px; font-weight: bold; font-size: 50px"> > </h1>
-            <div class="card">
-                <div class="card-header" style="font-size: 15px;">Signature fin état des lieux de l'inventaire</div>
-                <div class="card-body">
-                    <h6 class="card-title">Titre de la seconde carte</h6>
-                    <p class="card-text">Une ligne de texte dans notre seconde carte.</p>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 
