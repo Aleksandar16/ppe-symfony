@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Rent;
+use App\Form\LocationLocataireEndType;
 use App\Form\LocationLocataireType;
+use App\Form\LocationMandataireEndType;
 use App\Form\LocationMandataireType;
 use App\Form\RentLocataireType;
 use App\Form\RentResidenceType;
@@ -130,6 +132,33 @@ class LocationController extends AbstractController
         
         if ($user[0] == "ROLE_TENANT") {
             $rent = $rentRepository->find($id);
+            if ($rent->getTenantSignature() != null) {
+                $form = $this->createForm(LocationLocataireEndType::class, $rent);
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    $entityManager = $doctrine->getManager();
+
+                    $date = new \DateTime('@'.strtotime('now'));
+
+                    $rent->setTenantValidatedAtEnd($date);
+
+                    $rent = $form->getData();
+
+                    $entityManager->persist($rent);
+
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('app_home');
+                }
+
+                return $this->render('location/showLocation.html.twig', [
+                    'formTenantEnd' => $form->createView(),
+                    'rent' => $rent,
+                ]);
+            }
+            else
             $form = $this->createForm(LocationLocataireType::class, $rent);
             $form->handleRequest($request);
 
@@ -158,30 +187,58 @@ class LocationController extends AbstractController
         }
         elseif ($user[0] == "ROLE_REPRESENTATIVE") {
             $rent = $rentRepository->find($id);
-            $form = $this->createForm(LocationMandataireType::class, $rent);
-            $form->handleRequest($request);
+            if ($rent->getRepresentativeSignature() != null) {
+                $form = $this->createForm(LocationMandataireEndType::class, $rent);
+                $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted() && $form->isValid()) {
 
-                $entityManager = $doctrine->getManager();
+                    $entityManager = $doctrine->getManager();
 
-                $date = new \DateTime('@'.strtotime('now'));
+                    $date = new \DateTime('@'.strtotime('now'));
 
-                $rent->setRepresentativeValidatedAt($date);
+                    $rent->setRepresentativeValidatedAtEnd($date);
 
-                $rent = $form->getData();
+                    $rent = $form->getData();
 
-                $entityManager->persist($rent);
+                    $entityManager->persist($rent);
 
-                $entityManager->flush();
+                    $entityManager->flush();
 
-                return $this->redirectToRoute('app_home');
+                    return $this->redirectToRoute('app_home');
+                }
+
+                return $this->render('location/showLocation.html.twig', [
+                    'formTenantEnd' => $form->createView(),
+                    'rent' => $rent,
+                ]);
             }
+            else {
+                $form = $this->createForm(LocationMandataireType::class, $rent);
+                $form->handleRequest($request);
 
-            return $this->render('location/showLocation.html.twig', [
-                'formRepresentative' => $form->createView(),
-                'rent' => $rent,
-            ]);
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    $entityManager = $doctrine->getManager();
+
+                    $date = new \DateTime('@' . strtotime('now'));
+
+                    $rent->setRepresentativeValidatedAt($date);
+
+                    $rent = $form->getData();
+
+                    $entityManager->persist($rent);
+
+                    $entityManager->flush();
+
+                    return $this->redirectToRoute('app_home');
+                }
+
+                return $this->render('location/showLocation.html.twig', [
+                    'formRepresentative' => $form->createView(),
+                    'rent' => $rent,
+                ]);
+            }
         }
         else
             $rent = $rentRepository->find($id);

@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title>{% block title %}Gestion des locations {% endblock %}</title>
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="{{ asset('css/base.css') }}">
             <link rel="stylesheet" href="{{ asset('css/mandataire.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bien.css') }}">
@@ -20,7 +19,6 @@
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
             <script src="https://unpkg.com/@popperjs/core@2"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
