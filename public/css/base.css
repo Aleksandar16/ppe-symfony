@@ -38,3 +38,12 @@ h3 {
     margin-left: 10%;
     margin-bottom: 300px;
 }
+
+#base #rent {
+    margin-bottom: 50px;
+}
+
+#base #rent .btn {
+    background-color: #9f5540;
+    color: white;
+}

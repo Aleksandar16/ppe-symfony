@@ -6,6 +6,8 @@ use App\Entity\Rent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +16,14 @@ class LocationLocataireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('tenant_comments')
-            ->add('tenant_signature')
+            ->add('tenant_signature', TextType::class, [
+            'label' => 'Signature',
+            ])
+            ->add('tenant_comments', TextareaType::class, [
+                'label' => 'Commentaire',
+            ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Sauvegarder',
+                'label' => 'Signer',
             ]);
         ;
     }

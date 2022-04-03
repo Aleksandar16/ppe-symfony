@@ -6,6 +6,66 @@
         <div class="row">
             <div class="col-lg-4">
                 <img src="{{ asset('uploads/bien/' ~ rent.residence.photo) }}" alt="image" style="width: 350px; height: 200px;">
+                <div>
+                    {% if rent.tenantValidatedAt is not null %}
+                        {% if rent.representativeValidatedAt is null %}
+                            <p>{{ rent.tenant }} a signé le {{ rent.tenantValidatedAt | date('d/m/Y') }}.</p>
+                            {% if rent.tenantComments is not null %}
+                                <div style="border: black 1px solid">
+                                    <div style="margin: 5px;">
+                                        <strong>Commentaire du locataire : </strong>
+                                    </div>
+                                    <div style="margin: 5px;">
+                                        <strong>{{ rent.tenantComments }}</strong>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif%}
+                    {% endif %}
+                    {% if rent.representativeValidatedAt is not null %}
+                        {% if rent.tenantValidatedAtEnd is null %}
+                            <p>{{ rent.residence.representative }} a signé le {{ rent.representativeValidatedAt | date('d/m/Y') }}.</p>
+                            {% if rent.representativeComments is not null %}
+                                <div style="border: black 1px solid">
+                                    <div style="margin: 5px;">
+                                        <strong>Commentaire du mandataire : </strong>
+                                    </div>
+                                    <div style="margin: 5px;">
+                                        <strong>{{ rent.representativeComments }}</strong>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif%}
+                    {% endif %}
+                    {% if rent.tenantValidatedAtEnd is not null %}
+                        {% if rent.representativeValidatedAtEnd is null %}
+                            <p>{{ rent.tenant }} a signé le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}.</p>
+                            {% if rent.tenantCommentsEnd is not null %}
+                                <div style="border: black 1px solid">
+                                    <div style="margin: 5px;">
+                                        <strong>Commentaire du locataire : </strong>
+                                    </div>
+                                    <div style="margin: 5px;">
+                                        <strong>{{ rent.tenantCommentsEnd }}</strong>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif%}
+                    {% endif %}
+                    {% if rent.representativeValidatedAtEnd is not null %}
+                        <p>{{ rent.residence.representative }} a signé le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}.</p>
+                        {% if rent.representativeCommentsEnd is not null %}
+                            <div style="border: black 1px solid">
+                                <div style="margin: 5px;">
+                                    <strong>Commentaire du mandataire : </strong>
+                                </div>
+                                <div style="margin: 5px;">
+                                    <strong>{{ rent.representativeCommentsEnd }}</strong>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif%}
+                </div>
             </div>
             <div class="col-lg-6" style="margin-left: 30px;">
                 <h3>{{ rent.residence.name }}</h3>
@@ -14,33 +74,41 @@
                     <a href="{{ asset('uploads/bien/' ~ rent.inventoryFile) }}" style="text-decoration-color: #AF593D; color: #793318; font-weight: bold;">Télécharger </a>
                     <p style="margin-left: 5px;"> le gabarit</p>
                 </div>
+                {% if is_granted("ROLE_REPRESENTATIVE") %}
+                    {% if rent.representativeSignature is null %}
+                        {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                            {% if rent.tenantSignature is not null %}
+                                <p>Vous devez signer l'inventaire.</p>
+                                {{ form(formRepresentative) }}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% if rent.tenantValidatedAtEnd is not null %}
+                        {% if rent.representativeValidatedAtEnd is null %}
+                            <p>Vous devez signer l'inventaire de fin d'état des lieux.</p>
+                            {{ form(formRepresentativeEnd) }}
+                        {% endif %}
+                    {% endif%}
+                {% endif %}
+                {% if is_granted("ROLE_TENANT") %}
+                    {% if rent.tenantSignature is null %}
+                        {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
+                            <p>Vous devez signer l'inventaire.</p>
+                            {{ form(formTenant) }}
+                        {% endif %}
+                    {% endif %}
+                    {% if rent.representativeValidatedAt is not null %}
+                        {% if rent.tenantValidatedAtEnd is null %}
+                            <p>Vous devez signer l'inventaire de fin d'état des lieux.</p>
+                            {{ form(formTenantEnd) }}
+                        {% endif %}
+                    {% endif%}
+                {% endif %}
             </div>
         </div>
     </div>
-    {% if is_granted("ROLE_REPRESENTATIVE") %}
-        {% if rent.representativeSignature is null %}
-            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
-                {% if rent.tenantSignature is not null %}
-                    {{ form(formRepresentative) }}
-                {% endif %}
-            {% endif %}
-        {% endif %}
-        {% if rent.tenantValidatedAtEnd is not null %}
-            {{ form(formRepresentativeEnd) }}
-        {% endif%}
-    {% endif %}
-    {% if is_granted("ROLE_TENANT") %}
-        {% if rent.tenantSignature is null %}
-            {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
-                {{ form(formTenant) }}
-            {% endif %}
-        {% endif %}
-        {% if rent.representativeValidatedAt is not null %}
-            {{ form(formTenantEnd) }}
-        {% endif%}
-    {% endif %}
     <div style="margin-top: 40px; margin-bottom: 300px; margin-left: 5%; margin-right: 5%;">
-        <h3 style="margin-bottom: 30px;">{{ dump(rent) }}</h3>
+        <h3 style="margin-bottom: 30px;">Synthèse</h3>
         {# 1ERE ETAPE #}
         <div class="card-group card-deck">
             {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}

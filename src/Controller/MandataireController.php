@@ -62,7 +62,7 @@ class MandataireController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Veuillez confirmer votre email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')->context([
                         'username' => $user->getEmail(),
                         'password' => $user->getPassword(),

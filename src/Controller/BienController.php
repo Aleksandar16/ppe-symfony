@@ -7,6 +7,7 @@ use App\Form\BienType;
 use App\Repository\RentRepository;
 use App\Repository\ResidenceRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,9 +45,10 @@ class BienController extends AbstractController
         }
 
         else
-            return  $this->render('profil.html.twig');
+            return  $this->render('base.html.twig');
     }
 
+    #[IsGranted('ROLE_OWNER')]
     #[Route('/create-bien', name: 'create_bien')]
     public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
@@ -113,7 +115,7 @@ class BienController extends AbstractController
         ]);
     }
 
-
+    #[IsGranted('ROLE_OWNER')]
     #[Route('/update-bien/{id}', name: 'update_bien')]
     public function update(RentRepository $rentRepository, ResidenceRepository $residenceRepository, Request $request, ManagerRegistry $doctrine, int $id, SluggerInterface $slugger): Response
     {
@@ -190,6 +192,7 @@ class BienController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_OWNER')]
     #[Route('/ajout-location/{id}', name: 'ajout_locationbien')]
     public function ajoutLocation(ResidenceRepository $residenceRepository): Response
     {

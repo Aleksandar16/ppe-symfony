@@ -12,9 +12,13 @@ use App\Form\RentResidenceType;
 use App\Repository\RentRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
+use App\Security\EmailVerifier;
 use Doctrine\Persistence\ManagerRegistry;
+use PharIo\Manifest\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +28,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class LocationController extends AbstractController
 {
     private $security;
+    private EmailVerifier $emailVerifier;
+
+    public function __construct(EmailVerifier $emailVerifier)
+    {
+        $this->emailVerifier = $emailVerifier;
+    }
 
     #[Route('/ajout-location-residence/{id}', name: 'ajout_location_residence')]
     public function ajoutLocationResidence(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger, ResidenceRepository $residenceRepository, int $id): Response
@@ -61,8 +71,21 @@ class LocationController extends AbstractController
 
             $rent = $form->getData();
 
+            $user = $rent->getTenant();
+
             $entityManager->persist($rent);
             $entityManager->flush();
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                    ->to($user->getEmail())
+                    ->subject('Nouvelle location disponible')
+                    ->htmlTemplate('location/email-locataire.html.twig')->context([
+                        'username' => $user->getName(),
+                        'id' => $rent->getId(),
+                    ])
+            );
 
             return $this->redirectToRoute('bien');
         }
@@ -110,8 +133,21 @@ class LocationController extends AbstractController
 
             $rent = $form->getData();
 
+            $user = $rent->getTenant();
+
             $entityManager->persist($rent);
             $entityManager->flush();
+
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                    ->to($user->getEmail())
+                    ->subject('Nouvelle location disponible')
+                    ->htmlTemplate('location/email-locataire.html.twig')->context([
+                        'username' => $user->getName(),
+                        'id' => $rent->getId(),
+                    ])
+            );
 
             return $this->redirectToRoute('locataires');
         }
@@ -146,9 +182,23 @@ class LocationController extends AbstractController
 
                     $rent = $form->getData();
 
+                    $user = $rent->getResidence()->getRepresentative();
+
                     $entityManager->persist($rent);
 
                     $entityManager->flush();
+
+                    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                        (new TemplatedEmail())
+                            ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                            ->to($user->getEmail())
+                            ->subject('Nouvelle étape disponible')
+                            ->htmlTemplate('location/email-etape.html.twig')->context([
+                                'email' => $user->getName(),
+                                'id' => $rent->getId(),
+                            ])
+                    );
+
 
                     return $this->redirectToRoute('app_home');
                 }
@@ -172,9 +222,22 @@ class LocationController extends AbstractController
 
                 $rent = $form->getData();
 
+                $user = $rent->getResidence()->getRepresentative();
+
                 $entityManager->persist($rent);
 
                 $entityManager->flush();
+
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                    (new TemplatedEmail())
+                        ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                        ->to($user->getEmail())
+                        ->subject('Nouvelle étape disponible')
+                        ->htmlTemplate('location/email-etape.html.twig')->context([
+                            'email' => $user->getName(),
+                            'id' => $rent->getId(),
+                        ])
+                );
 
                 return $this->redirectToRoute('app_home');
             }
@@ -201,9 +264,22 @@ class LocationController extends AbstractController
 
                     $rent = $form->getData();
 
+                    $user = $rent->getTenant();
+
                     $entityManager->persist($rent);
 
                     $entityManager->flush();
+
+                    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                        (new TemplatedEmail())
+                            ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                            ->to($user->getEmail())
+                            ->subject('Nouvelle étape disponible')
+                            ->htmlTemplate('location/email-etape.html.twig')->context([
+                                'email' => $user->getName(),
+                                'id' => $rent->getId(),
+                            ])
+                    );
 
                     return $this->redirectToRoute('app_home');
                 }
@@ -227,9 +303,22 @@ class LocationController extends AbstractController
 
                     $rent = $form->getData();
 
+                    $user = $rent->getTenant();
+
                     $entityManager->persist($rent);
 
                     $entityManager->flush();
+
+                    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                        (new TemplatedEmail())
+                            ->from(new Address('aleksandar.milenkovicfr@gmail.com', 'Gestion de locations'))
+                            ->to($user->getEmail())
+                            ->subject('Nouvelle étape disponible')
+                            ->htmlTemplate('location/email-etape.html.twig')->context([
+                                'email' => $user->getName(),
+                                'id' => $rent->getId(),
+                            ])
+                    );
 
                     return $this->redirectToRoute('app_home');
                 }
