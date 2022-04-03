@@ -132,7 +132,7 @@ class LocationController extends AbstractController
         
         if ($user[0] == "ROLE_TENANT") {
             $rent = $rentRepository->find($id);
-            if ($rent->getTenantSignature() != null) {
+            if ($rent->getRepresentativeSignature() != null) {
                 $form = $this->createForm(LocationLocataireEndType::class, $rent);
                 $form->handleRequest($request);
 
@@ -187,7 +187,7 @@ class LocationController extends AbstractController
         }
         elseif ($user[0] == "ROLE_REPRESENTATIVE") {
             $rent = $rentRepository->find($id);
-            if ($rent->getRepresentativeSignature() != null) {
+            if ($rent->getTenantSignatureEnd() != null) {
                 $form = $this->createForm(LocationMandataireEndType::class, $rent);
                 $form->handleRequest($request);
 
@@ -209,7 +209,7 @@ class LocationController extends AbstractController
                 }
 
                 return $this->render('location/showLocation.html.twig', [
-                    'formTenantEnd' => $form->createView(),
+                    'formRepresentativeEnd' => $form->createView(),
                     'rent' => $rent,
                 ]);
             }

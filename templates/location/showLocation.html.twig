@@ -25,6 +25,9 @@
                 {% endif %}
             {% endif %}
         {% endif %}
+        {% if rent.tenantValidatedAtEnd is not null %}
+            {{ form(formRepresentativeEnd) }}
+        {% endif%}
     {% endif %}
     {% if is_granted("ROLE_TENANT") %}
         {% if rent.tenantSignature is null %}
@@ -32,6 +35,9 @@
                 {{ form(formTenant) }}
             {% endif %}
         {% endif %}
+        {% if rent.representativeValidatedAt is not null %}
+            {{ form(formTenantEnd) }}
+        {% endif%}
     {% endif %}
     <div style="margin-top: 40px; margin-bottom: 300px; margin-left: 5%; margin-right: 5%;">
         <h3 style="margin-bottom: 30px;">{{ dump(rent) }}</h3>
