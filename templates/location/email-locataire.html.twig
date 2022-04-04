@@ -4,7 +4,7 @@
 
 <p>
     Veuillez y accéder en cliquant sur le lien ci-dessous: <br><br>
-    <a href="{{ path('show_location', {id: id})}}">Location</a>.
+    <a href="{{ absolute_url(path('show_location', {id: id}))}}">Location</a>.
     <br>
     Le lien va expiré dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>

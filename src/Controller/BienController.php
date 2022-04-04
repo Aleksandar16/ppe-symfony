@@ -115,7 +115,6 @@ class BienController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_OWNER')]
     #[Route('/update-bien/{id}', name: 'update_bien')]
     public function update(RentRepository $rentRepository, ResidenceRepository $residenceRepository, Request $request, ManagerRegistry $doctrine, int $id, SluggerInterface $slugger): Response
     {

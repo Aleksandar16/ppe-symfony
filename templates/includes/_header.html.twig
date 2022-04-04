@@ -1,63 +1,65 @@
+{#
 <header>
-    <div id="nav-head">
-        <div id="logo">LOGO</div>
-        <label for="menu-toggle">
-            <div class="toggle-icon">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </label>
-    </div>
-    <input type="checkbox" id="menu-toggle">
-    <ul class="nav-links">
-        <li><a href="/">ACCUEIL</a></li>
-        {% if is_granted("ROLE_OWNER") %}
-            <li><a href="{{ path('bien') }}">BIEN</a></li>
-            <li><a href="{{ path('locataires') }}">LOCATAIRES</a></li>
-            <li><a href="{{ path('mandataire') }}">MANDATAIRES</a></li>
-        {% endif %}
-        {% if is_granted("ROLE_REPRESENTATIVE") %}
-            <li><a href="{{ path('bien') }}">BIEN</a></li>
-        {% endif %}
-        <li id="profil"><a href="{{ path('profil') }}"><i class="fa-solid fa-user"></i> MON PROFIL</a></li>
-    </ul>
+<div id="nav-head">
+    <div id="logo">LOGO</div>
+    <label for="menu-toggle">
+        <div class="toggle-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </label>
+</div>
+<input type="checkbox" id="menu-toggle">
+<ul class="nav-links">
+    <li><a href="/">ACCUEIL</a></li>
+    {% if is_granted("ROLE_OWNER") %}
+        <li><a href="{{ path('bien') }}">BIEN</a></li>
+        <li><a href="{{ path('locataires') }}">LOCATAIRES</a></li>
+        <li><a href="{{ path('mandataire') }}">MANDATAIRES</a></li>
+    {% endif %}
+    {% if is_granted("ROLE_REPRESENTATIVE") %}
+        <li><a href="{{ path('bien') }}">BIEN</a></li>
+    {% endif %}
+    <li id="profil"><a href="{{ path('profil') }}"><i class="fa-solid fa-user"></i> MON PROFIL</a></li>
+</ul>
 </header>
- {#
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+#}
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">LOGO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="/">ACCUEIL</a>
+                </li>
+            {% if is_granted("ROLE_OWNER") %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('bien') }}">BIENS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    <a class="nav-link" href="{{ path('locataires') }}">LOCATAIRES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                    <a class="nav-link" href="{{ path('mandataire') }}">MANDATAIRES</a>
                 </li>
+            {% endif %}
+                {% if is_granted("ROLE_REPRESENTATIVE") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('bien') }}">BIENS</a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('profil') }}"><i class="fas fa-user"></i>  MON PROFIL</a>
+                    </li>
+                </ul>
             </form>
         </div>
     </div>
 </nav>
-    #}

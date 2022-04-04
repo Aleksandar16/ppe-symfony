@@ -100,3 +100,34 @@ header label {
         display: block;
     }
 }
+
+nav {
+    background-color: #9f5540;
+}
+
+.navbar {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.navbar-brand {
+    color: #9f5540;
+    background-color: white;
+    padding: 15px 60px;
+    margin-left: 60px;
+    font-size: 15px;
+}
+
+.nav-link {
+    color:white;
+    font-size: 22px;
+    margin-right: 50px;
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+.navbar-toggler {
+    color: white;
+}

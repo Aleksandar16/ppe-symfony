@@ -6,6 +6,7 @@ use App\Repository\ResidenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ResidenceRepository::class)
@@ -21,26 +22,31 @@ class Residence
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank
      */
     private $zip_code;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $country;
 
@@ -51,11 +57,13 @@ class Residence
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @Assert\NotBlank
      */
     private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @Assert\NotBlank
      */
     private $representative;
 

@@ -62,8 +62,8 @@
                         <tbody>
                         <tr>
                             <td>{{ rent.id }}</td>
-                            <td>{{ rent.getArrivalDate()|date('d/F/Y') }}</td>
-                            <td>{{ rent.getDepartureDate()|date('d/F/Y') }}</td>
+                            <td>{{ rent.getArrivalDate()|date('d/m/Y') }}</td>
+                            <td>{{ rent.getDepartureDate()|date('d/m/Y') }}</td>
                             <td>{{ rent.tenant() }}</td>
                             <td><a type="button" class="btn btn-secondary" href="{{ path('show_location', {id: rent.id})}}">Accéder</a></td>
                         </tr>

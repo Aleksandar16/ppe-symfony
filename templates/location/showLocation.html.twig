@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-
     <div class="container" style="margin-top: 50px;">
         <div class="row">
             <div class="col-lg-4">
@@ -16,7 +15,7 @@
                                         <strong>Commentaire du locataire : </strong>
                                     </div>
                                     <div style="margin: 5px;">
-                                        <strong>{{ rent.tenantComments }}</strong>
+                                        <p>{{ rent.tenantComments }}</p>
                                     </div>
                                 </div>
                             {% endif %}
@@ -31,7 +30,7 @@
                                         <strong>Commentaire du mandataire : </strong>
                                     </div>
                                     <div style="margin: 5px;">
-                                        <strong>{{ rent.representativeComments }}</strong>
+                                        <p>{{ rent.representativeComments }}</p>
                                     </div>
                                 </div>
                             {% endif %}
@@ -46,7 +45,7 @@
                                         <strong>Commentaire du locataire : </strong>
                                     </div>
                                     <div style="margin: 5px;">
-                                        <strong>{{ rent.tenantCommentsEnd }}</strong>
+                                        <p>{{ rent.tenantCommentsEnd }}</p>
                                     </div>
                                 </div>
                             {% endif %}
@@ -60,7 +59,7 @@
                                     <strong>Commentaire du mandataire : </strong>
                                 </div>
                                 <div style="margin: 5px;">
-                                    <strong>{{ rent.representativeCommentsEnd }}</strong>
+                                    <p>{{ rent.representativeCommentsEnd }}</p>
                                 </div>
                             </div>
                         {% endif %}
@@ -112,11 +111,16 @@
         {# 1ERE ETAPE #}
         <div class="card-group card-deck">
             {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
-                <div class="card" style="border: green 1px solid;">
+                <div type="button" class="card" data-bs-toggle="popover" title="{{ rent.tenant.firstName }} {{ rent.tenant.name }} est arrivé le {{ rent.arrivalDate | date('d/m/Y') }}" data-bs-placement="bottom"style="border: green 1px solid;">
                     <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Arrivée du locataire</div>
                     <div class="card-body" style="background-color: green; color:white;">
                         <h6 class="card-title">Arrivée le {{ rent.arrivalDate | date('d/m/Y') }}</h6>
                         <p class="card-text">Le locataire est arrivé à la résidence.</p>
+                    </div>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
                     </div>
                 </div>
             {% elseif rent.arrivalDate | date('Y/m/d') > 'now' | date('Y/m/d') %}
@@ -132,7 +136,7 @@
             {# 2EME ETAPE #}
             {% if rent.arrivalDate | date('Y/m/d') <= 'now' | date('Y/m/d') %}
                 {% if rent.tenantValidatedAt is not null %}
-                    <div class="card">
+                    <div class="card" data-bs-toggle="popover" type="button" title="{{ rent.tenant.firstName }} {{ rent.tenant.name }} a signé le {{ rent.tenantValidatedAt | date('d/m/Y') }}" data-bs-placement="bottom" data-bs-content="{{ rent.tenantComments }}">
                         <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature de l'inventaire</div>
                         <div class="card-body" style="background-color: green; color:white;">
                             <h6 class="card-title">A signer le {{ rent.tenantValidatedAt | date('d/m/Y') }}</h6>
@@ -170,7 +174,7 @@
             {# 3EME ETAPE #}
                 {% if rent.tenantValidatedAt is not null %}
                     {% if rent.representativeValidatedAt is not null %}
-                        <div class="card">
+                        <div class="card" data-bs-toggle="popover" type="button" title="{{ rent.residence.representative }} a signé le {{ rent.representativeValidatedAt | date('d/m/Y') }}" data-bs-placement="bottom" data-bs-content="{{ rent.representativeComments }}">
                             <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature de l'inventaire</div>
                             <div class="card-body" style="background-color: green; color:white;">
                                 <h6 class="card-title">A signer le {{ rent.representativeValidatedAt | date('d/m/Y') }}</h6>
@@ -208,7 +212,7 @@
             {# 4EME ETAPE #}
             {% if rent.representativeValidatedAt is not null %}
                 {% if rent.tenantValidatedAtEnd is not null %}
-                    <div class="card">
+                    <div class="card" data-bs-toggle="popover" type="button" title="{{ rent.tenant.firstName }} {{ rent.tenant.name }} a signé le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}" data-bs-placement="bottom" data-bs-content="{{ rent.tenantCommentsEnd }}">
                         <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature fin état des lieux de l'inventaire</div>
                         <div class="card-body" style="background-color: green; color:white;">
                             <h6 class="card-title">A signer le {{ rent.tenantValidatedAtEnd | date('d/m/Y') }}</h6>
@@ -241,7 +245,7 @@
             {# 5 ETAPE #}
             {% if rent.tenantValidatedAtEnd is not null %}
                 {% if rent.representativeValidatedAtEnd is not null %}
-                    <div class="card">
+                    <div class="card" data-bs-toggle="popover" type="button" title="{{ rent.residence.representative }} a signé le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}" data-bs-placement="bottom" data-bs-content="{{ rent.representativeCommentsEnd }}">
                         <div class="card-header" style="font-size: 15px; background-color: green; color:white;">Signature fin état des lieux de l'inventaire</div>
                         <div class="card-body" style="background-color: green; color:white;">
                             <h6 class="card-title">A signer le {{ rent.representativeValidatedAtEnd | date('d/m/Y') }}</h6>
@@ -272,5 +276,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}

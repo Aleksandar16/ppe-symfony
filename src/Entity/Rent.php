@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RentRepository::class)
@@ -24,11 +25,13 @@ class Rent
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $arrival_date;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $departure_date;
 
@@ -129,7 +132,7 @@ class Rent
         return $this->arrival_date;
     }
 
-    public function setArrivalDate(\DateTimeInterface $arrival_date): self
+    public function setArrivalDate(?\DateTimeInterface $arrival_date): self
     {
         $this->arrival_date = $arrival_date;
 
@@ -141,7 +144,7 @@ class Rent
         return $this->departure_date;
     }
 
-    public function setDepartureDate(\DateTimeInterface $departure_date): self
+    public function setDepartureDate(?\DateTimeInterface $departure_date): self
     {
         $this->departure_date = $departure_date;
 

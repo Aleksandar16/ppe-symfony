@@ -11,11 +11,10 @@ use App\Form\RentLocataireType;
 use App\Form\RentResidenceType;
 use App\Repository\RentRepository;
 use App\Repository\ResidenceRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\Persistence\ManagerRegistry;
-use PharIo\Manifest\Email;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Mime\Address;
@@ -23,6 +22,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class LocationController extends AbstractController
@@ -162,6 +162,8 @@ class LocationController extends AbstractController
     #[Route('/show-location/{id}', name: 'show_location')]
     public function showLocation(Security $security, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger, RentRepository $rentRepository, int $id): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $this->security = $security;
 
         $user = $this->security->getUser()->getRoles();
@@ -194,7 +196,7 @@ class LocationController extends AbstractController
                             ->to($user->getEmail())
                             ->subject('Nouvelle étape disponible')
                             ->htmlTemplate('location/email-etape.html.twig')->context([
-                                'email' => $user->getName(),
+                                'username' => $user->getName(),
                                 'id' => $rent->getId(),
                             ])
                     );
@@ -234,7 +236,7 @@ class LocationController extends AbstractController
                         ->to($user->getEmail())
                         ->subject('Nouvelle étape disponible')
                         ->htmlTemplate('location/email-etape.html.twig')->context([
-                            'email' => $user->getName(),
+                            'username' => $user->getName(),
                             'id' => $rent->getId(),
                         ])
                 );
@@ -276,7 +278,7 @@ class LocationController extends AbstractController
                             ->to($user->getEmail())
                             ->subject('Nouvelle étape disponible')
                             ->htmlTemplate('location/email-etape.html.twig')->context([
-                                'email' => $user->getName(),
+                                'username' => $user->getName(),
                                 'id' => $rent->getId(),
                             ])
                     );
@@ -315,7 +317,7 @@ class LocationController extends AbstractController
                             ->to($user->getEmail())
                             ->subject('Nouvelle étape disponible')
                             ->htmlTemplate('location/email-etape.html.twig')->context([
-                                'email' => $user->getName(),
+                                'username' => $user->getName(),
                                 'id' => $rent->getId(),
                             ])
                     );
