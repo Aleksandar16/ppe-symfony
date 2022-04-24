@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class LocationController extends AbstractController
+class RentController extends AbstractController
 {
     private $security;
     private EmailVerifier $emailVerifier;

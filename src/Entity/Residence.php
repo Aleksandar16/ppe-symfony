@@ -22,58 +22,67 @@ class Residence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=45)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Code postal invalide, il faut {{ limit }} chiffres",
+     *      maxMessage = "Code postal invalide, il faut {{ limit }} chiffres",
+     * )
      */
-    private $zip_code;
+    private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
-    private $inventory_file;
+    private $inventoryFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $representative;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="residence")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $photo;
 
@@ -130,12 +139,12 @@ class Residence
 
     public function getZipCode(): ?string
     {
-        return $this->zip_code;
+        return $this->zipCode;
     }
 
-    public function setZipCode(string $zip_code): self
+    public function setZipCode(string $zipCode): self
     {
-        $this->zip_code = $zip_code;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
@@ -154,12 +163,12 @@ class Residence
 
     public function getInventoryFile(): ?string
     {
-        return $this->inventory_file;
+        return $this->inventoryFile;
     }
 
-    public function setInventoryFile(string $inventory_file): self
+    public function setInventoryFile(string $inventoryFile): self
     {
-        $this->inventory_file = $inventory_file;
+        $this->inventoryFile = $inventoryFile;
 
         return $this;
     }

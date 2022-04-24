@@ -35,6 +35,15 @@
                         </div>
                     </div>
                 {% endfor %}
+                {% if isPaginated %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% for i in range(1, nbPage) %}
+                                <li class="page-item"><a class="page-link" href="{{ path('show_locataires', {page: i, nb : nb, id: user.id}) }}">{{ i }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                {% endif %}
             </div>
         </div>
     </div>

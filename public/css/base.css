@@ -35,7 +35,7 @@ h3 {
 
 #base {
     margin-top: 50px;
-    margin-left: 10%;
+    padding-left: 10%;
     margin-bottom: 300px;
 }
 
@@ -46,4 +46,8 @@ h3 {
 #base #rent .btn {
     background-color: #9f5540;
     color: white;
+}
+
+.pagination {
+    padding-top: 20px;
 }

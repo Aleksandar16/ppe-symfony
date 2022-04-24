@@ -4,7 +4,7 @@
     <div class="container" id="biens">
         <div>
             <div id="biensHeader">
-                <h3 id="biensNumber">{{ bien | length }}</h3>
+                <h3 id="biensNumber">{{ total }}</h3>
                 <h3>biens</h3>
                 <a type="button" class="btn btn-success" href="{{ path('create_bien')}}">Ajouter un bien</a>
             </div>
@@ -43,5 +43,14 @@
                 </div>
             </div>
         {% endfor %}
+        {% if isPaginated %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% for i in range(1, nbPage) %}
+                        <li class="page-item"><a class="page-link" href="{{ path('bien', {page: i, nb : nb}) }}">{{ i }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        {% endif %}
     </div>
 {% endblock %}

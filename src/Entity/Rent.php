@@ -20,50 +20,51 @@ class Rent
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
-    private $inventory_file;
+    private $inventoryFile;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
-    private $arrival_date;
+    private $arrivalDate;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
-    private $departure_date;
+    private $departureDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $tenant_comments;
+    private $tenantComments;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $tenant_signature;
+    private $tenantSignature;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $tenant_validated_at;
+    private $tenantValidatedAt;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $representative_comments;
+    private $representativeComments;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $representative_signature;
+    private $representativeSignature;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $representative_validated_at;
+    private $representativeValidatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -83,32 +84,32 @@ class Rent
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tenant_comments_end;
+    private $tenantCommentsEnd;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tenant_signature_end;
+    private $tenantSignatureEnd;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $tenant_validated_at_end;
+    private $tenantValidatedAtEnd;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $representative_comments_end;
+    private $representativeCommentsEnd;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $representative_signature_end;
+    private $representativeSignatureEnd;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $representative_validated_at_end;
+    private $representativeValidatedAtEnd;
 
     public function getId(): ?int
     {
@@ -117,108 +118,108 @@ class Rent
 
     public function getInventoryFile(): ?string
     {
-        return $this->inventory_file;
+        return $this->inventoryFile;
     }
 
-    public function setInventoryFile(string $inventory_file): self
+    public function setInventoryFile(string $inventoryFile): self
     {
-        $this->inventory_file = $inventory_file;
+        $this->inventoryFile = $inventoryFile;
 
         return $this;
     }
 
     public function getArrivalDate(): ?\DateTimeInterface
     {
-        return $this->arrival_date;
+        return $this->arrivalDate;
     }
 
-    public function setArrivalDate(?\DateTimeInterface $arrival_date): self
+    public function setArrivalDate(?\DateTimeInterface $arrivalDate): self
     {
-        $this->arrival_date = $arrival_date;
+        $this->arrivalDate = $arrivalDate;
 
         return $this;
     }
 
     public function getDepartureDate(): ?\DateTimeInterface
     {
-        return $this->departure_date;
+        return $this->departureDate;
     }
 
-    public function setDepartureDate(?\DateTimeInterface $departure_date): self
+    public function setDepartureDate(?\DateTimeInterface $departureDate): self
     {
-        $this->departure_date = $departure_date;
+        $this->departureDate = $departureDate;
 
         return $this;
     }
 
     public function getTenantComments(): ?string
     {
-        return $this->tenant_comments;
+        return $this->tenantComments;
     }
 
-    public function setTenantComments(string $tenant_comments): self
+    public function setTenantComments(string $tenantComments): self
     {
-        $this->tenant_comments = $tenant_comments;
+        $this->tenantComments = $tenantComments;
 
         return $this;
     }
 
     public function getTenantSignature(): ?string
     {
-        return $this->tenant_signature;
+        return $this->tenantSignature;
     }
 
-    public function setTenantSignature(string $tenant_signature): self
+    public function setTenantSignature(string $tenantSignature): self
     {
-        $this->tenant_signature = $tenant_signature;
+        $this->tenantSignature = $tenantSignature;
 
         return $this;
     }
 
     public function getTenantValidatedAt(): ?\DateTimeInterface
     {
-        return $this->tenant_validated_at;
+        return $this->tenantValidatedAt;
     }
 
-    public function setTenantValidatedAt(\DateTimeInterface $tenant_validated_at): self
+    public function setTenantValidatedAt(\DateTimeInterface $tenantValidatedAt): self
     {
-        $this->tenant_validated_at = $tenant_validated_at;
+        $this->$tenantValidatedAt = $tenantValidatedAt;
 
         return $this;
     }
 
     public function getRepresentativeComments(): ?string
     {
-        return $this->representative_comments;
+        return $this->representativeComments;
     }
 
-    public function setRepresentativeComments(string $representative_comments): self
+    public function setRepresentativeComments(string $representativeComments): self
     {
-        $this->representative_comments = $representative_comments;
+        $this->representativeComments = $representativeComments;
 
         return $this;
     }
 
     public function getRepresentativeSignature(): ?string
     {
-        return $this->representative_signature;
+        return $this->representativeSignature;
     }
 
-    public function setRepresentativeSignature(string $representative_signature): self
+    public function setRepresentativeSignature(string $representativeSignature): self
     {
-        $this->representative_signature = $representative_signature;
+        $this->representativeSignature = $representativeSignature;
 
         return $this;
     }
 
     public function getRepresentativeValidatedAt(): ?\DateTimeInterface
     {
-        return $this->representative_validated_at;
+        return $this->representativeValidatedAt;
     }
 
-    public function setRepresentativeValidatedAt(\DateTimeInterface $representative_validated_at): self
+    public function setRepresentativeValidatedAt(\DateTimeInterface $representativeValidatedAt): self
     {
-        $this->representative_validated_at = $representative_validated_at;
+        $this->representativeValidatedAt = $representativeValidatedAt;
 
         return $this;
     }
@@ -261,72 +262,72 @@ class Rent
 
     public function getTenantCommentsEnd(): ?string
     {
-        return $this->tenant_comments_end;
+        return $this->tenantCommentsEnd;
     }
 
-    public function setTenantCommentsEnd(?string $tenant_comments_end): self
+    public function setTenantCommentsEnd(?string $tenantCommentsEnd): self
     {
-        $this->tenant_comments_end = $tenant_comments_end;
+        $this->tenantCommentsEnd = $tenantCommentsEnd;
 
         return $this;
     }
 
     public function getTenantSignatureEnd(): ?string
     {
-        return $this->tenant_signature_end;
+        return $this->tenantSignatureEnd;
     }
 
-    public function setTenantSignatureEnd(?string $tenant_signature_end): self
+    public function setTenantSignatureEnd(?string $tenantSignatureEnd): self
     {
-        $this->tenant_signature_end = $tenant_signature_end;
+        $this->tenantSignatureEnd = $tenantSignatureEnd;
 
         return $this;
     }
 
     public function getTenantValidatedAtEnd(): ?\DateTimeInterface
     {
-        return $this->tenant_validated_at_end;
+        return $this->tenantValidatedAtEnd;
     }
 
-    public function setTenantValidatedAtEnd(?\DateTimeInterface $tenant_validated_at_end): self
+    public function setTenantValidatedAtEnd(?\DateTimeInterface $tenantValidatedAtEnd): self
     {
-        $this->tenant_validated_at_end = $tenant_validated_at_end;
+        $this->tenantValidatedAtEnd = $tenantValidatedAtEnd;
 
         return $this;
     }
 
     public function getRepresentativeCommentsEnd(): ?string
     {
-        return $this->representative_comments_end;
+        return $this->representativeCommentsEnd;
     }
 
-    public function setRepresentativeCommentsEnd(?string $representative_comments_end): self
+    public function setRepresentativeCommentsEnd(?string $representativeCommentsEnd): self
     {
-        $this->representative_comments_end = $representative_comments_end;
+        $this->representativeCommentsEnd = $representativeCommentsEnd;
 
         return $this;
     }
 
     public function getRepresentativeSignatureEnd(): ?string
     {
-        return $this->representative_signature_end;
+        return $this->representativeSignatureEnd;
     }
 
-    public function setRepresentativeSignatureEnd(?string $representative_signature_end): self
+    public function setRepresentativeSignatureEnd(?string $representativeSignatureEnd): self
     {
-        $this->representative_signature_end = $representative_signature_end;
+        $this->representativeSignatureEnd = $representativeSignatureEnd;
 
         return $this;
     }
 
     public function getRepresentativeValidatedAtEnd(): ?\DateTimeInterface
     {
-        return $this->representative_validated_at_end;
+        return $this->representativeValidatedAtEnd;
     }
 
-    public function setRepresentativeValidatedAtEnd(?\DateTimeInterface $representative_validated_at_end): self
+    public function setRepresentativeValidatedAtEnd(?\DateTimeInterface $representativeValidatedAtEnd): self
     {
-        $this->representative_validated_at_end = $representative_validated_at_end;
+        $this->representativeValidatedAtEnd = $representativeValidatedAtEnd;
 
         return $this;
     }

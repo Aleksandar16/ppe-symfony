@@ -101,13 +101,10 @@ header label {
     }
 }
 
-nav {
-    background-color: #9f5540;
-}
-
 .navbar {
     padding-top: 30px;
     padding-bottom: 30px;
+    background-color: #9f5540;
 }
 
 .navbar-brand {

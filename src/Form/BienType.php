@@ -33,6 +33,7 @@ class BienType extends AbstractType
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse',
+                'required' => true,
                 'attr' => ['class' => 'tinymce'],
                 'constraints' => [
                     new NotBlank([
@@ -43,6 +44,7 @@ class BienType extends AbstractType
             ->add('city', TextType::class, [
                 'attr' => ['class' => 'tinymce'],
                 'label' => 'Ville',
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer le nom de la ville',
@@ -52,20 +54,17 @@ class BienType extends AbstractType
             ->add('zip_code', TextType::class, [
                 'label' => 'Code postal',
                 'attr' => ['class' => 'tinymce'],
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer le code postal',
-                    ]),
-                    new Length([
-                        'min' => 5,
-                        'minMessage' => 'Code postal invalide',
-                        'max' => 5,
                     ]),
                 ],
             ])
             ->add('country', TextType::class, [
                 'attr' => ['class' => 'tinymce'],
                 'label' => 'Pays',
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer le nom du pays',
@@ -75,7 +74,7 @@ class BienType extends AbstractType
             ->add('inventory_file', FileType::class, [
                 'label' => 'Gabarit inventaire',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -90,7 +89,7 @@ class BienType extends AbstractType
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -106,6 +105,7 @@ class BienType extends AbstractType
             ->add('owner', EntityType::class, [
                 'class' => User::class,
                 'label' => 'Bailleur',
+                'required' => true,
                 'choice_label' => 'name',
                 'attr' => array(
                     'class' => 'selectpicker'
@@ -119,6 +119,7 @@ class BienType extends AbstractType
             ->add('representative', EntityType::class, [
                 'class' => User::class,
                 'label' => 'Mandataire',
+                'required' => true,
                 'choice_label' => 'name',
                 'attr' => array(
                     'class' => 'selectpicker'

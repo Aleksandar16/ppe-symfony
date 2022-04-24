@@ -26,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Ce champ ne peut pas être vide.")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $email;
 
@@ -38,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $password;
 
@@ -48,13 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=55)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=55)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $firstname;
 

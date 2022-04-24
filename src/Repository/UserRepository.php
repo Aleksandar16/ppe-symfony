@@ -49,20 +49,24 @@ class UserRepository extends ServiceEntityRepository
     }
     */
 
-    public function findByRoleMandataire()
+    public function findByRoleMandataire($limit, $offset)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.role LIKE :role')
             ->setParameter('role', '["ROLE_REPRESENTATIVE"]')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->getQuery()
             ->getResult();
     }
 
-    public function findByRoleLocataire()
+    public function findByRoleLocataire($limit, $offset)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.role LIKE :role')
             ->setParameter('role', '["ROLE_TENANT"]')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->getQuery()
             ->getResult();
     }
@@ -81,7 +85,7 @@ class UserRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function findRent(User $user)
+    public function findRent(User $user, $limit, $offset)
     {
         $entityManager = $this->getEntityManager();
 
@@ -90,7 +94,9 @@ class UserRepository extends ServiceEntityRepository
             FROM App\Entity\Rent rent
             INNER JOIN rent.tenant User
             WHERE User.id = :tenant'
-        )->setParameter('tenant', $user);
+        )->setParameter('tenant', $user)
+        ->setMaxResults($limit)
+        ->setFirstResult($offset);
 
         return $query->getResult();
     }

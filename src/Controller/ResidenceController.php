@@ -16,13 +16,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BienController extends AbstractController
+class ResidenceController extends AbstractController
 {
     private $security;
 
-    #[Route('bien', name: 'bien')]
-    public function index(ResidenceRepository $residenceRepository, Security $security): Response
+    #[Route('bien/{page?1}/{nb?10}', name: 'bien')]
+    public function index(ResidenceRepository $residenceRepository, Security $security, $page, $nb): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -31,16 +32,30 @@ class BienController extends AbstractController
         $user = $this->security->getUser()->getRoles();
 
         if ($user[0] == "ROLE_OWNER") {
-            $bien = $residenceRepository->findAll();
+            $nbResidence = count($residenceRepository->findAll());
+            $nbPage = ceil($nbResidence / $nb);
+            $bien = $residenceRepository->findBy([], [], $nb, ($page - 1) * $nb);
             return $this->render('owner/bien/index.html.twig', [
                 'bien' => $bien,
+                'total' => $nbResidence,
+                'isPaginated' => true,
+                'nbPage' => $nbPage,
+                'page' => $page,
+                'nb' => $nb,
             ]);
         }
         elseif ($user[0] == "ROLE_REPRESENTATIVE") {
             $id = $this->security->getUser()->getUserId();
-            $bien = $residenceRepository->findResidenceRepresentative($id);
+            $nbResidence = count($residenceRepository->findBy(['representative' => $id]));
+            $nbPage = ceil($nbResidence / $nb);
+            $bien = $residenceRepository->findBy(['representative' => $id], ['id' => 'ASC'], $nb, ($page - 1) * $nb);
             return $this->render('representative/bien/index.html.twig', [
-               'bien' => $bien,
+                'bien' => $bien,
+                'total' => $nbResidence,
+                'isPaginated' => true,
+                'nbPage' => $nbPage,
+                'page' => $page,
+                'nb' => $nb,
             ]);
         }
 
@@ -50,7 +65,7 @@ class BienController extends AbstractController
 
     #[IsGranted('ROLE_OWNER')]
     #[Route('/create-bien', name: 'create_bien')]
-    public function create(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
+    public function create(ValidatorInterface $validator, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 

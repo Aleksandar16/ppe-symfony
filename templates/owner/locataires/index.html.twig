@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div id="listeLocataire">
+<div id="listeLocataire" class="container">
     <div id="headerLocataire">
         <h3>Gestion des locataires </h3>
         <a type="button" class="btn btn-success" href="{{ path('ajout_locataires')}}">Nouveau locataire</a>
@@ -18,19 +18,26 @@
         </tr>
         </thead>
         {% for locataires in locataires %}
-            {% if locataires.roles[0] == "ROLE_TENANT" %}
-                <tbody>
-                <tr>
-                    <td>{{ locataires.id }}</td>
-                    <td>{{ locataires.name }}</td>
-                    <td>{{ locataires.firstname }}</td>
-                    <td>{{ locataires.tenant | length }}</td>
-                    <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
-                </tr>
-                </tbody>
-            {% endif %}
+            <tbody>
+                    <tr>
+                        <td>{{ locataires.id }}</td>
+                        <td>{{ locataires.name }}</td>
+                        <td>{{ locataires.firstname }}</td>
+                        <td>{{ locataires.tenant | length }}</td>
+                        <td><a type="button" class="btn btn-secondary" href="{{ path('show_locataires', {id: locataires.id})}}">Mettre à jour les données</a></td>
+                    </tr>
+            </tbody>
         {% endfor %}
     </table>
+    {% if isPaginated %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% for i in range(1, nbPage) %}
+                    <li class="page-item"><a class="page-link" href="{{ path('locataires', {page: i, nb : nb}) }}">{{ i }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
 </div>
 
 {% endblock %}
