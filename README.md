@@ -18,7 +18,7 @@ Stack technique :
 - Symfony
 
 Télécharger le projet :
-- Cloner le projet :
+- Cloner le projet (invite de commande):
   - git clone https://github.com/Aleksandar16/ppe-symfony.git
   - cd ppe-symfony
 - Installer le projet :
