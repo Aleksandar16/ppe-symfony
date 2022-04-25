@@ -6563,20 +6563,20 @@
         },
         {
             "name": "symfony/translation",
-            "version": "6.1.x-dev",
+            "version": "v6.1.0-BETA1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "1fd45fbff8cd348d8f764df620b59c5ff6d2c9ff"
+                "reference": "94e782ec30c26f4ed777357b76069791e63df472"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/1fd45fbff8cd348d8f764df620b59c5ff6d2c9ff",
-                "reference": "1fd45fbff8cd348d8f764df620b59c5ff6d2c9ff",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/94e782ec30c26f4ed777357b76069791e63df472",
+                "reference": "94e782ec30c26f4ed777357b76069791e63df472",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=8.1",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/translation-contracts": "^2.3|^3.0"
             },
@@ -6601,6 +6601,7 @@
                 "symfony/http-kernel": "^5.4|^6.0",
                 "symfony/intl": "^5.4|^6.0",
                 "symfony/polyfill-intl-icu": "^1.21",
+                "symfony/routing": "^5.4|^6.0",
                 "symfony/service-contracts": "^1.1.2|^2|^3",
                 "symfony/yaml": "^5.4|^6.0"
             },
@@ -6638,7 +6639,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/6.1"
+                "source": "https://github.com/symfony/translation/tree/v6.1.0-BETA1"
             },
             "funding": [
                 {
@@ -6654,7 +6655,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-08T14:00:06+00:00"
+            "time": "2022-04-14T13:14:59+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -6943,16 +6944,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "6.1.x-dev",
+            "version": "v6.1.0-BETA1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "135f049d6229c4557bcd576c5bdd130827e31951"
+                "reference": "afd5c693ec3b908364ee4d531450fdaa8f592fda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/135f049d6229c4557bcd576c5bdd130827e31951",
-                "reference": "135f049d6229c4557bcd576c5bdd130827e31951",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/afd5c693ec3b908364ee4d531450fdaa8f592fda",
+                "reference": "afd5c693ec3b908364ee4d531450fdaa8f592fda",
                 "shasum": ""
             },
             "require": {
@@ -7031,7 +7032,7 @@
             "description": "Provides tools to validate values",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/validator/tree/6.1"
+                "source": "https://github.com/symfony/validator/tree/v6.1.0-BETA1"
             },
             "funding": [
                 {
@@ -7047,7 +7048,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-01T11:43:52+00:00"
+            "time": "2022-04-15T08:08:08+00:00"
         },
         {
             "name": "symfony/var-dumper",

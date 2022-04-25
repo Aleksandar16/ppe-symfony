@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LocataireType;
+use App\Entity\Informations;
 use App\Form\ModifLocataireType;
 use App\Repository\RentRepository;
 use App\Repository\UserRepository;
@@ -20,6 +21,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Polyfill\Intl\Idn\Info;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 #[IsGranted('ROLE_OWNER')]
@@ -52,15 +55,17 @@ class TenantController extends AbstractController
     }
 
     #[Route('/ajout-locataires', name: 'ajout_locataires')]
-    public function ajoutLocataires(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function ajoutLocataires(ValidatorInterface $validator, Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $faker = Factory::create('fr_FR');
 
         $user = new User();
+        $info = new Informations();
         $user->setPassword($faker->password());
         $user->setRoles(['ROLE_TENANT']);
+        $info->setTenant($user);
         $form = $this->createForm(LocataireType::class, $user);
         $form->handleRequest($request);
 
@@ -81,7 +86,24 @@ class TenantController extends AbstractController
 
             $user->setPassword($hash);
 
+            $info = $form->getData();
+
+            $errors = $validator->validate($user);
+
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            }
+
+            $errors = $validator->validate($info);
+
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+                return new Response($errorsString);
+            }
+
             $entityManager->persist($user);
+            $entityManager->persist($info);
             $entityManager->flush();
 
             $this->addFlash('success', 'Locataire ajouté avec succès');

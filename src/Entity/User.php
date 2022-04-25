@@ -27,6 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\NotNull(message="Ce champs ne peut pas être nul")
      */
     private $email;
 
@@ -39,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\NotNull(message="Ce champs ne peut pas être nul")
      */
     private $password;
 
@@ -50,12 +52,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=55)
      * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\NotNull(message="Ce champs ne peut pas être nul")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=55)
      * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
+     * @Assert\NotNull(message="Ce champs ne peut pas être nul")
      */
     private $firstname;
 
@@ -78,6 +82,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Residence::class, mappedBy="representative")
      */
     private $representative;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Informations::class, mappedBy="tenant", cascade={"persist", "remove"})
+     */
+    private $informations;
 
     public function __construct()
     {
@@ -308,6 +317,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRepresentative(?user $representative): self
     {
         $this->representative = $representative;
+
+        return $this;
+    }
+
+    public function getInformations(): ?Informations
+    {
+        return $this->informations;
+    }
+
+    public function setInformations(Informations $informations): self
+    {
+        // set the owning side of the relation if necessary
+        if ($informations->getTenant() !== $this) {
+            $informations->setTenant($this);
+        }
+
+        $this->informations = $informations;
 
         return $this;
     }

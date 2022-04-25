@@ -104,7 +104,7 @@ class RentController extends AbstractController
 
         $user = $userRepository->find($id);
 
-        $rents = $userRepository->findRent($user);
+        $rents = $userRepository->findRent($user, null, null);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
