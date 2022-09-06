@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class BienType extends AbstractType
+class ResidenceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -71,10 +71,10 @@ class BienType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('inventory_file', FileType::class, [
+            ->add('inventoryFile', FileType::class, [
                 'label' => 'Gabarit inventaire',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -89,7 +89,7 @@ class BienType extends AbstractType
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

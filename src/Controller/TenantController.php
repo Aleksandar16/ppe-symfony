@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\LocataireType;
+use App\Form\TenantType;
 use App\Entity\Informations;
-use App\Form\ModifLocataireType;
+use App\Form\UpdateTenantType;
 use App\Repository\RentRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
@@ -66,7 +66,7 @@ class TenantController extends AbstractController
         $user->setPassword($faker->password());
         $user->setRoles(['ROLE_TENANT']);
         $info->setTenant($user);
-        $form = $this->createForm(LocataireType::class, $user);
+        $form = $this->createForm(TenantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -152,7 +152,7 @@ class TenantController extends AbstractController
         $nbPage = ceil($nbRent / $nb);
         $rentLocataire = $userRepository->findRent($user, $nb, ($page - 1) * $nb);
 
-        $form = $this->createForm(ModifLocataireType::class, $user);
+        $form = $this->createForm(UpdateTenantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

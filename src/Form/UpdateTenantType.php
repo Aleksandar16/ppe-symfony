@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ModifLocataireType extends AbstractType
+class UpdateTenantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

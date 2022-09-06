@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Residence;
-use App\Form\BienType;
+use App\Form\ResidenceType;
 use App\Repository\RentRepository;
 use App\Repository\ResidenceRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -71,12 +71,12 @@ class ResidenceController extends AbstractController
 
         $bien = new Residence();
 
-        $form = $this->createForm(BienType::class, $bien);
+        $form = $this->createForm(ResidenceType::class, $bien);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $doc = $form->get('inventory_file')->getData();
+            $doc = $form->get('inventoryFile')->getData();
 
             if ($doc) {
                 $originalFilename = pathinfo($doc->getClientOriginalName(), PATHINFO_FILENAME);
@@ -143,12 +143,12 @@ class ResidenceController extends AbstractController
 
         $rentResidence = $residenceRepository->findByResidence($bien);
 
-        $form = $this->createForm(BienType::class, $bien);
+        $form = $this->createForm(ResidenceType::class, $bien);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $brochureFile = $form->get('inventory_file')->getData();
+            $brochureFile = $form->get('inventoryFile')->getData();
 
             if ($brochureFile) {
                 $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -165,7 +165,6 @@ class ResidenceController extends AbstractController
                 }
 
                 $bien->setInventoryFile($newFilename);
-
             }
 
             $screen = $form->get('photo')->getData();

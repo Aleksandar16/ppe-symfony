@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Rent;
-use App\Form\LocationLocataireEndType;
-use App\Form\LocationLocataireType;
-use App\Form\LocationMandataireEndType;
-use App\Form\LocationMandataireType;
+use App\Form\RentTenantEndType;
+use App\Form\RentTenantType;
+use App\Form\RentRepresentativeEndType;
+use App\Form\RentRepresentativeType;
 use App\Form\RentLocataireType;
 use App\Form\RentResidenceType;
 use App\Repository\RentRepository;
@@ -159,6 +159,9 @@ class RentController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/show-location/{id}', name: 'show_location')]
     public function showLocation(Security $security, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger, RentRepository $rentRepository, int $id): Response
     {
@@ -171,7 +174,7 @@ class RentController extends AbstractController
         if ($user[0] == "ROLE_TENANT") {
             $rent = $rentRepository->find($id);
             if ($rent->getRepresentativeSignature() != null) {
-                $form = $this->createForm(LocationLocataireEndType::class, $rent);
+                $form = $this->createForm(RentTenantEndType::class, $rent);
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
@@ -211,7 +214,7 @@ class RentController extends AbstractController
                 ]);
             }
             else
-            $form = $this->createForm(LocationLocataireType::class, $rent);
+            $form = $this->createForm(RentTenantType::class, $rent);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -253,7 +256,7 @@ class RentController extends AbstractController
         elseif ($user[0] == "ROLE_REPRESENTATIVE") {
             $rent = $rentRepository->find($id);
             if ($rent->getTenantSignatureEnd() != null) {
-                $form = $this->createForm(LocationMandataireEndType::class, $rent);
+                $form = $this->createForm(RentRepresentativeEndType::class, $rent);
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {
@@ -292,7 +295,7 @@ class RentController extends AbstractController
                 ]);
             }
             else {
-                $form = $this->createForm(LocationMandataireType::class, $rent);
+                $form = $this->createForm(RentRepresentativeType::class, $rent);
                 $form->handleRequest($request);
 
                 if ($form->isSubmitted() && $form->isValid()) {

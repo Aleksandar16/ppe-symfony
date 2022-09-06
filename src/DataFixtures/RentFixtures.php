@@ -12,21 +12,20 @@ class RentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        //Date atélatoire
         $timestamp = mt_rand(1, time());
         $date = new \DateTime ();
         $date->setTimestamp($timestamp);
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $rent = new Rent();
-            $rent->setTenant($this->getReference('user'.rand(1, 2)));
-            $rent->setResidence($this->getReference('residence'.rand(1, 2)));
+            $rent->setTenant($this->getReference('user1'));
+            $rent->setResidence($this->getReference('residence1'));
             $rent->setInventoryFile('file'.rand(0,20).'.pdf');
             $rent->setDepartureDate($date);
             $rent->setArrivalDate($date);
             $rent->setTenantComments('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $rent->setTenantSignature('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
-            $rent->setTenantValidatedAt('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
+            $rent->setTenantValidatedAt($date);
             $rent->setRepresentativeComments('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $rent->setRepresentativeSignature('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum');
             $rent->setRepresentativeValidatedAt($date);

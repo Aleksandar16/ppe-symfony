@@ -10,19 +10,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LocationMandataireEndType extends AbstractType
+class RentTenantEndType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('representative_comments_end', TextType::class, [
+            ->add('tenant_signature_end', TextType::class, [
                 'label' => 'Signature',
             ])
-            ->add('representative_signature_end', TextareaType::class, [
-                'label' => 'Signature',
+            ->add('tenant_comments_end', TextareaType::class, [
+                'label' => 'Commentaire',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Sauvegarder',
+                'label' => 'Signer',
             ]);
         ;
     }

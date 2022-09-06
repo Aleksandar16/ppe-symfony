@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Coordonnees;
 use App\Entity\User;
-use App\Form\MandataireType;
-use App\Form\ModifMandataireType;
+use App\Form\RepresentativeType;
+use App\Form\UpdateRepresentativeType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,8 +56,10 @@ class RepresentativeController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = new User();
+        $coordonnees = new Coordonnees();
+        $coordonnees->setRepresentative($user);
         $faker = Factory::create('fr_FR');
-        $form = $this->createForm(MandataireType::class, $user);
+        $form = $this->createForm(RepresentativeType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +81,10 @@ class RepresentativeController extends AbstractController
             $hash = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hash);
 
+            $coordonnees = $form->getData();
+
             $entityManager->persist($user);
+            $entityManager->persist($coordonnees);
             $entityManager->flush();
 
             return $this->redirectToRoute('mandataire');
@@ -121,7 +127,7 @@ class RepresentativeController extends AbstractController
 
         $bienMandataire = $userRepository->findByResidence($user);
 
-        $form = $this->createForm(ModifMandataireType::class, $user);
+        $form = $this->createForm(UpdateRepresentativeType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

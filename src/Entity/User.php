@@ -39,8 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
-     * @Assert\NotNull(message="Ce champs ne peut pas être nul")
      */
     private $password;
 
@@ -87,6 +85,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToOne(targetEntity=Informations::class, mappedBy="tenant", cascade={"persist", "remove"})
      */
     private $informations;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Coordonnees::class, mappedBy="representative", cascade={"persist", "remove"})
+     */
+    private $coordonnees;
 
     public function __construct()
     {
@@ -334,6 +337,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->informations = $informations;
+
+        return $this;
+    }
+
+    public function getCoordonnees(): ?Coordonnees
+    {
+        return $this->coordonnees;
+    }
+
+    public function setCoordonnees(Coordonnees $coordonnees): self
+    {
+        // set the owning side of the relation if necessary
+        if ($coordonnees->getRepresentative() !== $this) {
+            $coordonnees->setRepresentative($this);
+        }
+
+        $this->coordonnees = $coordonnees;
 
         return $this;
     }

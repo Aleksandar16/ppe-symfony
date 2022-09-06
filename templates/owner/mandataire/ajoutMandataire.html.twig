@@ -9,9 +9,10 @@
                 {{ form_start(form) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.firstname) }}
+                {{ form_row(form.email) }}
             </div>
             <div class="col-lg-6 col-xs-12">
-                {{ form_row(form.email) }}
+                {{ form_row(form.coordonnees) }}
                 {{ form_row(form.submit, { 'label': 'Ajouter' }) }}
                 {{ form_end(form) }}
             </div>

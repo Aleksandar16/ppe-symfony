@@ -20,7 +20,6 @@ class Rent
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $inventoryFile;
 
@@ -42,7 +41,7 @@ class Rent
     private $tenantComments;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tenantSignature;
 
@@ -52,12 +51,12 @@ class Rent
     private $tenantValidatedAt;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $representativeComments;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $representativeSignature;
 
@@ -181,9 +180,9 @@ class Rent
         return $this->tenantValidatedAt;
     }
 
-    public function setTenantValidatedAt(\DateTimeInterface $tenantValidatedAt): self
+    public function setTenantValidatedAt(?\DateTimeInterface $tenantValidatedAt): self
     {
-        $this->$tenantValidatedAt = $tenantValidatedAt;
+        $this->tenantValidatedAt = $tenantValidatedAt;
 
         return $this;
     }
@@ -217,7 +216,7 @@ class Rent
         return $this->representativeValidatedAt;
     }
 
-    public function setRepresentativeValidatedAt(\DateTimeInterface $representativeValidatedAt): self
+    public function setRepresentativeValidatedAt(?\DateTimeInterface $representativeValidatedAt): self
     {
         $this->representativeValidatedAt = $representativeValidatedAt;
 

@@ -58,7 +58,6 @@ class Residence
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $inventoryFile;
 
@@ -76,13 +75,11 @@ class Residence
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="residence")
-     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ce champs ne peut pas être vide")
      */
     private $photo;
 

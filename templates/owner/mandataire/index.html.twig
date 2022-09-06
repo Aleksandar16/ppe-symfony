@@ -16,6 +16,7 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Nombre de résidences</th>
+                <th>Date début contrat</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <td>{{ mandataire.name }}</td>
                         <td>{{ mandataire.firstname }}</td>
                         <td>{{ mandataire.representative | length }}</td>
+                        <td>{{ mandataire.coordonnees.dateDebutContrat | date('d/m/Y') }}</td>
                         <td><a type="button" class="btn btn-secondary" href="{{ path('show_mandataire', {id: mandataire.id})}}">Mettre à jour les données</a></td>
                     </tr>
                     </tbody>
