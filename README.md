@@ -1,4 +1,4 @@
-# ppe-symfony
+# ppe-symfony (projet personnel encadré)
 Projet symfony BTS-2 : Gestion des locations
 
 
