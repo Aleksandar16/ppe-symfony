@@ -165,8 +165,7 @@ class TenantController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('locataires', [
-                'id' => $user->getId()]);
+            return $this->redirectToRoute('locataires');
         }
 
         return $this->render('owner/locataires/modif-locataires.html.twig', [

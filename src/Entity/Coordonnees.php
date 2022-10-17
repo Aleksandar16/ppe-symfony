@@ -18,36 +18,6 @@ class Coordonnees
     private $id;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $adresse;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $numeroAppartement;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $batiment;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $etage;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $codePostal;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $ville;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $telephone;
@@ -58,81 +28,24 @@ class Coordonnees
      */
     private $representative;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateDebutContrat;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateFinContrat;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $commentaireRelation;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getNumeroAppartement(): ?int
-    {
-        return $this->numeroAppartement;
-    }
-
-    public function setNumeroAppartement(?int $numeroAppartement): self
-    {
-        $this->numeroAppartement = $numeroAppartement;
-
-        return $this;
-    }
-
-    public function getBatiment(): ?string
-    {
-        return $this->batiment;
-    }
-
-    public function setBatiment(?string $batiment): self
-    {
-        $this->batiment = $batiment;
-
-        return $this;
-    }
-
-    public function getEtage(): ?int
-    {
-        return $this->etage;
-    }
-
-    public function setEtage(?int $etage): self
-    {
-        $this->etage = $etage;
-
-        return $this;
-    }
-
-    public function getCodePostal(): ?int
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(int $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
     }
 
     public function getTelephone(): ?int
@@ -155,6 +68,42 @@ class Coordonnees
     public function setRepresentative(User $representative): self
     {
         $this->representative = $representative;
+
+        return $this;
+    }
+
+    public function getDateDebutContrat(): ?\DateTimeInterface
+    {
+        return $this->dateDebutContrat;
+    }
+
+    public function setDateDebutContrat(\DateTimeInterface $dateDebutContrat): self
+    {
+        $this->dateDebutContrat = $dateDebutContrat;
+
+        return $this;
+    }
+
+    public function getDateFinContrat(): ?\DateTimeInterface
+    {
+        return $this->dateFinContrat;
+    }
+
+    public function setDateFinContrat(\DateTimeInterface $dateFinContrat): self
+    {
+        $this->dateFinContrat = $dateFinContrat;
+
+        return $this;
+    }
+
+    public function getCommentaireRelation(): ?string
+    {
+        return $this->commentaireRelation;
+    }
+
+    public function setCommentaireRelation(?string $commentaireRelation): self
+    {
+        $this->commentaireRelation = $commentaireRelation;
 
         return $this;
     }

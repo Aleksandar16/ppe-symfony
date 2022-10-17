@@ -142,6 +142,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twbs/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/components/jquery" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/masterminds/html5" />
     </content>
     <content url="file://$MODULE_DIR$/public/build" />
     <orderEntry type="inheritedJdk" />
