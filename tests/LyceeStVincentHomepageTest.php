@@ -16,6 +16,6 @@ class LyceeStVincentHomepageTest extends TestCase
         $crawler = new Crawler($request->getContent());
         $content = $crawler->filterXPath('//div[@id="bandeau-niveaux"]//h2')->text();
 
-        $this->assertEquals('Secondaire', $content);
+        $this->assertEquals('Secondire', $content);
     }
 }
